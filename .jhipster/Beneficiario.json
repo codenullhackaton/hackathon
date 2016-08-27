@@ -1,0 +1,20 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "nome",
+            "fieldType": "String",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldName": "endereco",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160827194812",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "beneficiario",
+    "pagination": "pagination"
+}

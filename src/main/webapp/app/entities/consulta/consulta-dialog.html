@@ -1,0 +1,100 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myConsultaLabel">Create or edit a Consulta</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.consulta.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.consulta.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_dataConsulta">Data Consulta</label>
+                <div class="input-group">
+                    <input id="field_dataConsulta" type="text" class="form-control" name="dataConsulta" uib-datepicker-popup="{{dateformat}}" ng-model="vm.consulta.dataConsulta" is-open="vm.datePickerOpenStatus.dataConsulta"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dataConsulta')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.dataConsulta.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dataConsulta.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_localidade">Localidade</label>
+            <input type="text" class="form-control" name="localidade" id="field_localidade"
+                    ng-model="vm.consulta.localidade"
+                    required />
+            <div ng-show="editForm.localidade.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.localidade.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_criadoEm">Criado Em</label>
+                <div class="input-group">
+                    <input id="field_criadoEm" type="text" class="form-control" name="criadoEm" uib-datepicker-popup="{{dateformat}}" ng-model="vm.consulta.criadoEm" is-open="vm.datePickerOpenStatus.criadoEm"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('criadoEm')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+
+        <div class="form-group">
+            <label for="field_procedimento">Procedimento</label>
+            <select class="form-control" id="field_procedimento" name="procedimento" ng-model="vm.consulta.procedimento" ng-options="procedimento as procedimento.descricao for procedimento in vm.procedimentos track by procedimento.id" required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.procedimento.$invalid">
+            <p class="help-block"
+                ng-show="editForm.procedimento.$error.required">
+                This field is required.
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="field_cooperado">Cooperado</label>
+            <select class="form-control" id="field_cooperado" name="cooperado" ng-model="vm.consulta.cooperado" ng-options="cooperado as cooperado.nome for cooperado in vm.cooperados track by cooperado.id" required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.cooperado.$invalid">
+            <p class="help-block"
+                ng-show="editForm.cooperado.$error.required">
+                This field is required.
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="field_beneficiario">Beneficiario</label>
+            <select class="form-control" id="field_beneficiario" name="beneficiario" ng-model="vm.consulta.beneficiario" ng-options="beneficiario as beneficiario.nome for beneficiario in vm.beneficiarios track by beneficiario.id" required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.beneficiario.$invalid">
+            <p class="help-block"
+                ng-show="editForm.beneficiario.$error.required">
+                This field is required.
+            </p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

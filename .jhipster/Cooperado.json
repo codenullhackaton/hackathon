@@ -1,0 +1,48 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "especialidades",
+            "otherEntityName": "especialidade",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "descricao",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "cooperados"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nome",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "crm",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "valorCota",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "adesao",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20160827194337",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "cooperado",
+    "pagination": "pagination"
+}

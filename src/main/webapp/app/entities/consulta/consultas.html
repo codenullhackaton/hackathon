@@ -1,0 +1,76 @@
+<div>
+    <h2>Consultas</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="consulta.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Consulta
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="dataConsulta"><span>Data Consulta</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="localidade"><span>Localidade</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="criadoEm"><span>Criado Em</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="procedimento.descricao"><span>Procedimento</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="cooperado.nome"><span>Cooperado</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="beneficiario.nome"><span>Beneficiario</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="consulta in vm.consultas track by consulta.id">
+                    <td><a ui-sref="consulta-detail({id:consulta.id})">{{consulta.id}}</a></td>
+                        <td>{{consulta.dataConsulta | date:'mediumDate'}}</td>
+                    <td>{{consulta.localidade}}</td>
+                        <td>{{consulta.criadoEm | date:'mediumDate'}}</td>
+                    <td>
+                        <a ui-sref="procedimento-detail({id:consulta.procedimento.id})">{{consulta.procedimento.descricao}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="cooperado-detail({id:consulta.cooperado.id})">{{consulta.cooperado.nome}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="beneficiario-detail({id:consulta.beneficiario.id})">{{consulta.beneficiario.nome}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="consulta-detail({id:consulta.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="consulta.edit({id:consulta.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="consulta.delete({id:consulta.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

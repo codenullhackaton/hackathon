@@ -1,0 +1,18 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "descricao",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20160827193752",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "especialidade",
+    "pagination": "pagination"
+}

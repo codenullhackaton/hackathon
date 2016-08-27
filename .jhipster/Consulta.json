@@ -1,0 +1,57 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "procedimento",
+            "otherEntityName": "procedimento",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "descricao"
+        },
+        {
+            "relationshipName": "cooperado",
+            "otherEntityName": "cooperado",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "nome"
+        },
+        {
+            "relationshipName": "beneficiario",
+            "otherEntityName": "beneficiario",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "nome"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "dataConsulta",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "localidade",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "criadoEm",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20160827195634",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "consulta",
+    "pagination": "pagination"
+}

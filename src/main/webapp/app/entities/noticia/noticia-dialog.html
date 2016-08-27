@@ -1,0 +1,66 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myNoticiaLabel">Create or edit a Noticia</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.noticia.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.noticia.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_titulo">Titulo</label>
+            <input type="text" class="form-control" name="titulo" id="field_titulo"
+                    ng-model="vm.noticia.titulo"
+                    required />
+            <div ng-show="editForm.titulo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.titulo.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_criadoEm">Criado Em</label>
+                <div class="input-group">
+                    <input id="field_criadoEm" type="text" class="form-control" name="criadoEm" uib-datepicker-popup="{{dateformat}}" ng-model="vm.noticia.criadoEm" is-open="vm.datePickerOpenStatus.criadoEm"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('criadoEm')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.criadoEm.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.criadoEm.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_conteudo">Conteudo</label>
+            <input type="text" class="form-control" name="conteudo" id="field_conteudo"
+                    ng-model="vm.noticia.conteudo"
+                    required />
+            <div ng-show="editForm.conteudo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.conteudo.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
