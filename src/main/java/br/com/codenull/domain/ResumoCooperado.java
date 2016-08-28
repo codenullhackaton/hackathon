@@ -21,6 +21,8 @@ public class ResumoCooperado implements Serializable {
     private BigDecimal valorCotaOriginal = BigDecimal.ZERO;
 
     private BigDecimal valorCotaReajustado = BigDecimal.ZERO;
+    private BigDecimal valorArrecadadoAno = BigDecimal.ZERO;
+    private Integer proximasConsultas = 0;
 
 
     public ResumoCooperado() {
@@ -64,6 +66,13 @@ public class ResumoCooperado implements Serializable {
         return totalValor;
     }
 
+
+    public BigDecimal somarValorArrecadado(BigDecimal valor){
+        valorArrecadadoAno  = valorArrecadadoAno.add(valor);
+        return valorArrecadadoAno;
+    }
+
+
     public BigDecimal getValorCotaOriginal() {
         return valorCotaOriginal;
     }
@@ -78,5 +87,21 @@ public class ResumoCooperado implements Serializable {
 
     public void setValorCotaReajustado(BigDecimal valorCotaReajustado) {
         this.valorCotaReajustado = valorCotaReajustado;
+    }
+
+    public BigDecimal getValorArrecadadoAno() {
+        return valorArrecadadoAno;
+    }
+
+    public void setValorArrecadadoAno(BigDecimal valorArrecadadoAno) {
+        this.valorArrecadadoAno = valorArrecadadoAno;
+    }
+
+    public Integer getProximasConsultas() {
+        return proximasConsultas;
+    }
+
+    public void setProximasConsultas(Integer proximasConsultas) {
+        this.proximasConsultas = proximasConsultas;
     }
 }

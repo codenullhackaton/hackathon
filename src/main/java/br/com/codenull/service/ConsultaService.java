@@ -105,17 +105,43 @@ public class ConsultaService {
         Map<String, BigDecimal> mapa = Maps.newLinkedHashMap();
         Stream<Consulta> consultas = consultaRepository.findByCooperadoId(cooperadoId).stream();
         LocalDate hoje = LocalDate.now();
-        consultas  = consultas .filter(p -> p.getDataConsulta().getYear()== hoje.getYear() && p.getDataConsulta().getMonthValue() == hoje.getMonthValue());
+        consultas  = consultas .filter(p -> p.getDataConsulta().getYear() == hoje.getYear() || p.getDataConsulta().toLocalDate().isAfter(hoje));
 
         consultas
             .forEach(p -> {
-                resumoCooperado.setTotalConsultas(resumoCooperado.getTotalConsultas()+1);
-                resumoCooperado.somarValor(p.getProcedimento().getValor());
-                TemporalField semanaAno = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
-                if(p.getDataConsulta().get(semanaAno) == hoje.get(semanaAno)){
-                    resumoCooperado.setTotalSemana(resumoCooperado.getTotalSemana()+1);
+                if(p.getDataConsulta().getYear()== hoje.getYear() && p.getDataConsulta().getMonthValue() == hoje.getMonthValue()) {
+                    log.info("data consulta: {}", p.getDataConsulta());
+                    resumoCooperado.setTotalConsultas(resumoCooperado.getTotalConsultas() + 1);
+                    resumoCooperado.somarValor(p.getProcedimento().getValor());
+                    TemporalField semanaAno = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+                    if (p.getDataConsulta().get(semanaAno) == hoje.get(semanaAno)) {
+                        resumoCooperado.setTotalSemana(resumoCooperado.getTotalSemana() + 1);
+                    }
                 }
+                if(p.getDataConsulta().toLocalDate().isBefore(hoje)){
+                    resumoCooperado.somarValorArrecadado(p.getProcedimento().getValor());
+                }
+                if(p.getDataConsulta().toLocalDate().isAfter(hoje)){
+                    resumoCooperado.setProximasConsultas(resumoCooperado.getProximasConsultas()+1);
+                }
+
             });
+
+/*
+
+        consultas  = consultas.filter(p -> p.getDataConsulta().getYear()== hoje.getYear() && p.getDataConsulta().toLocalDate().isBefore(hoje));
+        consultas
+            .forEach(p -> {
+                resumoCooperado.somarValorArrecadado(p.getProcedimento().getValor());
+            });
+
+        consultas  = consultas .filter(p -> p.getDataConsulta().toLocalDate().isAfter(hoje));
+        consultas
+            .forEach(p -> {
+                resumoCooperado.setProximasConsultas(resumoCooperado.getProximasConsultas()+1);
+            });
+*/
+
         Cooperado cooperado = cooperadoService.findOne(cooperadoId);
         resumoCooperado.setValorCotaOriginal(cooperado.getValorCota());
         resumoCooperado.setValorCotaReajustado(cooperado.getValorCota());
