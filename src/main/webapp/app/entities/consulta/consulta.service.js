@@ -16,8 +16,8 @@
                 transformResponse: function (data) {
                     if (data) {
                         data = angular.fromJson(data);
-                        data.dataConsulta = DateUtils.convertLocalDateFromServer(data.dataConsulta);
                         data.criadoEm = DateUtils.convertLocalDateFromServer(data.criadoEm);
+                        data.dataConsulta = DateUtils.convertDateTimeFromServer(data.dataConsulta);
                     }
                     return data;
                 }
@@ -25,7 +25,6 @@
             'update': {
                 method: 'PUT',
                 transformRequest: function (data) {
-                    data.dataConsulta = DateUtils.convertLocalDateToServer(data.dataConsulta);
                     data.criadoEm = DateUtils.convertLocalDateToServer(data.criadoEm);
                     return angular.toJson(data);
                 }
@@ -33,7 +32,6 @@
             'save': {
                 method: 'POST',
                 transformRequest: function (data) {
-                    data.dataConsulta = DateUtils.convertLocalDateToServer(data.dataConsulta);
                     data.criadoEm = DateUtils.convertLocalDateToServer(data.criadoEm);
                     return angular.toJson(data);
                 }

@@ -2,8 +2,9 @@ package br.com.codenull.domain;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -27,7 +28,7 @@ public class Procedimento implements Serializable {
 
     @NotNull
     @Column(name = "valor", nullable = false)
-    private String valor;
+    private BigDecimal valor;
 
     public Long getId() {
         return id;
@@ -63,16 +64,16 @@ public class Procedimento implements Serializable {
         this.duracao = duracao;
     }
 
-    public String getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public Procedimento valor(String valor) {
+    public Procedimento valor(BigDecimal valor) {
         this.valor = valor;
         return this;
     }
 
-    public void setValor(String valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 

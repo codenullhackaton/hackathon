@@ -31,13 +31,6 @@
     ],
     "fields": [
         {
-            "fieldName": "dataConsulta",
-            "fieldType": "LocalDate",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "localidade",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -47,6 +40,13 @@
         {
             "fieldName": "criadoEm",
             "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "dataConsulta",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20160827195634",

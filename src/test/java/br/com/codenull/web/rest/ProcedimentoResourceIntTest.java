@@ -4,16 +4,14 @@ import br.com.codenull.HackathonApp;
 import br.com.codenull.domain.Procedimento;
 import br.com.codenull.repository.ProcedimentoRepository;
 import br.com.codenull.service.ProcedimentoService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,9 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -42,8 +42,8 @@ public class ProcedimentoResourceIntTest {
 
     private static final Integer DEFAULT_DURACAO = 1;
     private static final Integer UPDATED_DURACAO = 2;
-    private static final String DEFAULT_VALOR = "AAAAA";
-    private static final String UPDATED_VALOR = "BBBBB";
+    private static final BigDecimal DEFAULT_VALOR = BigDecimal.TEN;
+    private static final BigDecimal UPDATED_VALOR = new BigDecimal("15");
 
     @Inject
     private ProcedimentoRepository procedimentoRepository;

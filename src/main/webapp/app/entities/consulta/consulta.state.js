@@ -115,9 +115,9 @@
                     resolve: {
                         entity: function () {
                             return {
-                                dataConsulta: null,
                                 localidade: null,
                                 criadoEm: null,
+                                dataConsulta: null,
                                 id: null
                             };
                         }

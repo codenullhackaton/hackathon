@@ -1,10 +1,5 @@
-import _root_.io.gatling.core.scenario.Simulation
-import ch.qos.logback.classic.{Level, LoggerContext}
-import io.gatling.core.Predef._
-import io.gatling.http.Predef._
+import ch.qos.logback.classic.LoggerContext
 import org.slf4j.LoggerFactory
-
-import scala.concurrent.duration._
 
 /**
  * Performance test for the Consulta entity.
@@ -67,7 +62,7 @@ class ConsultaGatlingTest extends Simulation {
             .exec(http("Create new consulta")
             .post("/api/consultas")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "dataConsulta":"2020-01-01T00:00:00.000Z", "localidade":"SAMPLE_TEXT", "criadoEm":"2020-01-01T00:00:00.000Z"}""")).asJSON
+            .body(StringBody("""{"id":null, "localidade":"SAMPLE_TEXT", "criadoEm":"2020-01-01T00:00:00.000Z", "dataConsulta":"2020-01-01T00:00:00.000Z"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_consulta_url"))).exitHereIfFailed
             .pause(10)
