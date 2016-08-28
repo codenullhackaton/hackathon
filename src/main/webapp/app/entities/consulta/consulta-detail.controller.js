@@ -12,6 +12,11 @@
 
         vm.consulta = entity;
         vm.previousState = previousState.name;
+        vm.notaFiscal = notaFiscal;
+
+        function notaFiscal() {
+            window.open('http://localhost:8080/content/images/nota-fiscal.png');
+        }
 
         var unsubscribe = $rootScope.$on('hackathonApp:consultaUpdate', function(event, result) {
             vm.consulta = result;
