@@ -23,6 +23,18 @@
                     }
                     return data;
                 }
+            },
+            'consultasPorCooperadoAgenda': {
+                url: 'api/consultas/agenda/cooperado/:id',
+                method: 'GET',
+                isArray: true,
+                transformResponse: function (data) {
+                    if (data) {
+                        console.log("CONSULTAS PARA AGENDA: ", data);
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+                }
             }
         });
     }

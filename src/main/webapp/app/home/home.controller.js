@@ -4,11 +4,10 @@
     angular
         .module('hackathonApp')
         .controller('HomeController', HomeController);
-    HomeController.$inject = ['$scope', 'Principal', 'Noticia', 'Auth', '$state', '$rootScope', '$timeout', 'ConsultaCooperado'];
 
-    HomeController.$inject = ['$window', '$scope', 'Principal', 'Consulta', 'Auth', '$state', '$rootScope', '$timeout', 'calendarConfig', 'AlertService', 'moment', '$ocLazyLoad'];
+    HomeController.$inject = ['$window', '$scope', 'Noticia', 'Principal', 'Consulta', 'Auth', '$state', '$rootScope', '$timeout', 'calendarConfig', 'AlertService', 'moment', '$ocLazyLoad', 'ConsultaCooperado'];
 
-    function HomeController($window, $scope, Principal, Consulta, Auth, $state, $rootScope, $timeout, calendarConfig, AlertService, moment, $ocLazyLoad) {
+    function HomeController($window, $scope, Noticia, Principal, Consulta, Auth, $state, $rootScope, $timeout, calendarConfig, AlertService, moment, $ocLazyLoad, ConsultaCooperado) {
 
         var vm = this;
 
@@ -124,89 +123,6 @@
         function register() {
             $state.go('register');
         }
-
-        // TODO AGENDA
-        vm.eventsBack = [];
-
-        buscarConsultasPorCooperado();
-        function buscarConsultasPorCooperado() {
-            Consulta.getConsultasPorCooperado({id: 1000}, onSuccess, onError);
-            function onSuccess(data) {
-                console.log('>>> BUSCAR CONSULTAS POR COOPERADO: ' + data);
-                return vm.consultas = data;
-            }
-
-            function onError(error) {
-                AlertService.error(error.data.message);
-            }
-        };
-
-        vm.calendarView = 'month';
-        vm.viewDate = new Date();
-
-
-        var actions = [{
-            label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
-            onClick: function (args) {
-                alert.show('Edited', args.calendarEvent);
-            }
-        }, {
-            label: '<i class=\'glyphicon glyphicon-remove\'></i>',
-            onClick: function (args) {
-                alert.show('Deleted', args.calendarEvent);
-            }
-        }];
-
-        vm.events = [
-            {
-                title: 'Consulta 1',
-                color: calendarConfig.colorTypes.warning,
-                startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
-                endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
-                draggable: true,
-                resizable: true
-            }, {
-                title: '<i class="glyphicon glyphicon-asterisk"></i> <span class="text-primary">Consulta 2</span>, with a <i>html</i> title',
-                color: calendarConfig.colorTypes.info,
-                startsAt: moment().subtract(1, 'day').toDate(),
-                endsAt: moment().add(5, 'days').toDate(),
-                draggable: true,
-                resizable: true
-            }, {
-                title: 'Consulta 3',
-                color: calendarConfig.colorTypes.important,
-                startsAt: moment().startOf('day').add(7, 'hours').toDate(),
-                endsAt: moment().startOf('day').add(19, 'hours').toDate(),
-                recursOn: 'year',
-                draggable: true,
-                resizable: true
-            }
-        ];
-
-        vm.eventClicked = function (event) {
-            alert.show('Clicked', event);
-        };
-
-        vm.eventEdited = function (event) {
-            alert.show('Edited', event);
-        };
-
-        vm.eventDeleted = function (event) {
-            alert.show('Deleted', event);
-        };
-
-        vm.eventTimesChanged = function (event) {
-            alert.show('Dropped or resized', event);
-        };
-
-        vm.toggle = function ($event, field, event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            event[field] = !event[field];
-        };
-
-        vm.temCompromissoHoje = false;
-
 
 
         vm.chart = {};
@@ -344,18 +260,18 @@
          * Options for Line chart
          */
         this.lineOptions = {
-            scaleShowGridLines : true,
-            scaleGridLineColor : "rgba(0,0,0,.05)",
-            scaleGridLineWidth : 1,
-            bezierCurve : true,
-            bezierCurveTension : 0.4,
-            pointDot : true,
-            pointDotRadius : 4,
-            pointDotStrokeWidth : 1,
-            pointHitDetectionRadius : 20,
-            datasetStroke : true,
-            datasetStrokeWidth : 2,
-            datasetFill : true
+            scaleShowGridLines: true,
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleGridLineWidth: 1,
+            bezierCurve: true,
+            bezierCurveTension: 0.4,
+            pointDot: true,
+            pointDotRadius: 4,
+            pointDotStrokeWidth: 1,
+            pointHitDetectionRadius: 20,
+            datasetStroke: true,
+            datasetStrokeWidth: 2,
+            datasetFill: true
         };
 
         /**
@@ -454,6 +370,73 @@
             vm.chart.lineData.datasets[0].data = data.dados;
         }
 
+
+        // TODO AGENDA
+        vm.calendarView = 'month';
+        vm.viewDate = new Date();
+
+        var actions = [{
+            label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+            onClick: function (args) {
+                alert.show('Edited', args.calendarEvent);
+            }
+        }, {
+            label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+            onClick: function (args) {
+                alert.show('Deleted', args.calendarEvent);
+            }
+        }];
+
+        vm.temCompromissoHoje = false;
+        vm.eventosAgenda = [];
+
+        buscarConsultarPorCooperadoParaAgenda();
+        function buscarConsultarPorCooperadoParaAgenda() {
+            ConsultaCooperado.consultasPorCooperadoAgenda({id: 1000}, onSuccessAgenda);
+            function onSuccessAgenda(data) {
+                vm.consultasAgenda = data;
+
+                for (var i = 0; i < vm.consultasAgenda.length; i++) {
+                    var dataConsulta = new Date(vm.consultasAgenda[i].dataConsulta).setHours(0, 0, 0, 0);
+                    var dataAtual = new Date().setHours(0, 0, 0, 0);
+                    if (dataConsulta == dataAtual) {
+                        vm.temCompromissoHoje = true;
+                    }
+
+                    var evento = {
+                        title: vm.consultasAgenda[i].localidade,
+                        color: calendarConfig.colorTypes.warning,
+                        startsAt: vm.consultasAgenda[i].dataConsulta,
+                        endsAt: vm.consultasAgenda[i].dataConsulta,
+                        draggable: true,
+                        resizable: true
+                    };
+                    vm.eventosAgenda.push(evento);
+                }
+            }
+        }
+
+        vm.eventClicked = function (event) {
+            alert.show('Clicked', event);
+        };
+
+        vm.eventEdited = function (event) {
+            alert.show('Edited', event);
+        };
+
+        vm.eventDeleted = function (event) {
+            alert.show('Deleted', event);
+        };
+
+        vm.eventTimesChanged = function (event) {
+            alert.show('Dropped or resized', event);
+        };
+
+        vm.toggle = function ($event, field, event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            event[field] = !event[field];
+        };
 
     }
 })();

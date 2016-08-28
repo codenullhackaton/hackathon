@@ -81,6 +81,6 @@ public class ConsultaService {
 
     public List<Consulta> findConsultasByCooperadoId(Long idCooperado) {
         log.debug("REST request to get Consultas por Cooperado: {}", idCooperado);
-        return Lists.newArrayList();
+        return consultaRepository.findByCooperadoId(idCooperado);
     }
 }

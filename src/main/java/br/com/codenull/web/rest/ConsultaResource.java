@@ -1,6 +1,7 @@
 package br.com.codenull.web.rest;
 
 import br.com.codenull.domain.Consulta;
+import br.com.codenull.domain.Cooperado;
 import br.com.codenull.domain.chart.LineChart;
 import br.com.codenull.service.ConsultaService;
 import br.com.codenull.service.GraficoService;
@@ -107,7 +108,7 @@ public class ConsultaResource {
     }
 
     @RequestMapping(
-        value = "/consultas/cooperado/{idCooperado}",
+        value = "/consultas/agenda/cooperado/{idCooperado}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -164,7 +165,7 @@ public class ConsultaResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<LineChart> lineChartCooperado(@PathVariable Long idCooperado) throws URISyntaxException {
-        log.debug("REST request to line chart cooperados Cooperado :");
+        log.debug("REST request to line chart cooperados Cooperado : {} " + idCooperado);
 
         //LineChart lineChart = criarLineChartFake();
         LineChart lineChart = graficoService.consultasPorMes(idCooperado, null, null);
@@ -185,7 +186,7 @@ public class ConsultaResource {
     private void criarLabelsAndDados(LineChart line) {
         YearMonth mesAno = YearMonth.of(2016, 1);
         YearMonth hoje = YearMonth.of(2016, 8);
-        while (mesAno.isBefore(hoje)){
+        while (mesAno.isBefore(hoje)) {
             line.addLabel(mesAno.getMonth().name());
             line.addDados(BigDecimal.valueOf(mesAno.getMonthValue() + 50));
             mesAno = mesAno.plusMonths(1);
