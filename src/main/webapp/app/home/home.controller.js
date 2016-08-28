@@ -21,6 +21,7 @@
         vm.rememberMe = true;
         vm.requestResetPassword = requestResetPassword;
         vm.username = null;
+        vm.resumo = {};
 
         vm.graficosView = '/app/home/graficos.html';
         vm.agendaView = '/app/home/agenda.html';
@@ -31,6 +32,7 @@
 
         vm.register = register;
         var lineChart = ConsultaCooperado.consultasPorCooperado({id: 1000}, onSuccessLineChart);
+        var resmo = ConsultaCooperado.consultasResumoPorCooperado({id: 1000}, onSuccessResumo);
 
         $scope.$on('authenticationSuccess', function () {
             getAccount();
@@ -358,6 +360,11 @@
         function onSuccessLineChart(data) {
             vm.chart.lineData.labels = data.labels;
             vm.chart.lineData.datasets[0].data = data.dados;
+        }
+
+        function onSuccessResumo(data){
+            console.log("", data);
+            vm.resumo = data;
         }
 
 

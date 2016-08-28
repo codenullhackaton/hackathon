@@ -107,13 +107,13 @@
                                                         <strong>1</strong>
                                                     </td>
                                                     <td>
-                                                        <strong>142</strong> Consultas
+                                                        <strong>{{vm.resumo.totalSemana}}</strong> Consultas
                                                     </td>
                                                     <td>
-                                                        <strong>22</strong> Urgências
+                                                        <strong>0</strong> Urgências
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <!--<tr>
                                                     <td>
                                                         <strong>2</strong>
                                                     </td>
@@ -134,14 +134,14 @@
                                                     <td>
                                                         <strong>2</strong> Urgências
                                                     </td>
-                                                </tr>
+                                                </tr>-->
 
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div class="col-md-3 text-center">
                                             <h2 class="text-info">Cota</h2>
-                                            <h1 class="no-margins">$206.000,00</h1>
+                                            <h1 class="no-margins">{{vm.resumo.valorCotaReajustado | currency: 'R$'}}</h1>
 
                                         </div>
                                     </div>

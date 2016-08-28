@@ -1,6 +1,7 @@
 package br.com.codenull.web.rest;
 
 import br.com.codenull.domain.Consulta;
+import br.com.codenull.domain.ResumoCooperado;
 import br.com.codenull.domain.chart.LineChart;
 import br.com.codenull.service.ConsultaService;
 import br.com.codenull.service.GraficoService;
@@ -158,6 +159,17 @@ public class ConsultaResource {
             .headers(HeaderUtil.createEntityUpdateAlert("cooperado", cooperado.getId().toString()))
             .body(result);*/
         return ResponseEntity.ok(lineChart);
+    }
+
+
+    @RequestMapping(value = "/consulta/cooperado-resumo/{idCooperado}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<ResumoCooperado> getResumoCooperado(@PathVariable Long idCooperado) throws URISyntaxException {
+        log.debug("REST request to resumo Cooperado:");
+        ResumoCooperado resumo = consultaService.getResumoCooperado(idCooperado);
+        return ResponseEntity.ok(resumo);
     }
 
     private LineChart criarLineChartFake() {

@@ -23,6 +23,17 @@
                     }
                     return data;
                 }
+            },
+            'consultasResumoPorCooperado': {
+                url: 'api/consulta/cooperado-resumo/:id',
+                method: 'GET',
+                transformResponse: function (data) {
+                    if (data) {
+                        console.log("buscando line chart", data);
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+                }
             }
         });
     }

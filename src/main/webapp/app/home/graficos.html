@@ -1,11 +1,11 @@
 <div class="col-lg-3">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <span class="label label-success pull-right">Monthly</span>
+            <span class="label label-success pull-right">Mês</span>
             <h5>Consultas</h5>
         </div>
         <div class="ibox-content">
-            <h1 class="no-margins">40 886,200</h1>
+            <h1 class="no-margins">{{vm.resumo.totalConsultas}}</h1>
 
             <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i>
             </div>
@@ -16,11 +16,11 @@
 <div class="col-lg-3">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <span class="label label-info pull-right">Annual</span>
-            <h5>Procedimentos</h5>
+            <span class="label label-info pull-right">Mês</span>
+            <h5>Valores Arrecadados</h5>
         </div>
         <div class="ibox-content">
-            <h1 class="no-margins">275,800</h1>
+            <h1 class="no-margins">{{vm.resumo.totalValor | currency: 'R$'}}</h1>
 
             <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
             </div>
