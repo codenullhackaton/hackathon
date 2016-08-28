@@ -2,11 +2,17 @@
 
     <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;">
         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-click="vm.toggleNavbar()">
+                <span class="sr-only">Toggle navigation</span>
+                <i class="fa fa-bars"></i>
+            </button>
+
             <a class="navbar-brand logo" href="#/" ng-click="vm.collapseNavbar()">
-                <img class="logo-img" src="content/images/unimed-logo-topo.png"/>
+                <img class="logo-img" src="content/images/unimed-logo-40.jpg"/>
             </a>
         </div>
-        <div class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed" ng-switch="vm.isAuthenticated()">
+
+        <div id="navbar" class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed" ng-switch="vm.isAuthenticated()">
             <ul class="nav navbar-nav navbar-right">
 
                 <li ui-sref-active="active">
@@ -63,8 +69,6 @@
 
                     </ul>
                 </li>
-
-
 
 
                 <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">

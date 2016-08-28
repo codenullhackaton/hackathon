@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="content/font-awesome/css/font-awesome.min.css">
     <!-- endbuild -->
 </head>
-<body ng-app="hackathonApp" ng-strict-di>
+<body ng-app="hackathonApp" ng-strict-di class="gradient-bg">
 <!--[if lt IE 9]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
@@ -30,7 +30,7 @@
 
 <div class="wrapper top-navigation">
 
-    <div id="page-wrapper" class="gray-bg">
+    <div id="page-wrapper">
         <div ui-view="navbar" ng-cloak></div>
 
         <div class="wrapper wrapper-content p-xl ng-scope">
@@ -39,12 +39,23 @@
                     <!-- Angular views -->
                 </div>
             </div>
+
+
         </div>
+
     </div>
 
     <!--<div class="footer" ng-cloak>-->
     <!--<p>This is your footer</p>-->
     <!--</div>-->
+</div>
+
+<div class="footer">
+    <div class="footer-logo">
+    </div>
+    <div class="col-lg-12 text-center">
+        <strong>Copyright</strong> Example Company © 2015-2016
+    </div>
 </div>
 
 <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.

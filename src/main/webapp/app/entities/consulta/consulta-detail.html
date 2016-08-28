@@ -1,43 +1,51 @@
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h2><span>Consulta</span> {{vm.consulta.id}}</h2>
+    </div>
 
-<div>
-    <h2><span>Consulta</span> {{vm.consulta.id}}</h2>
-    <hr>
-    <jhi-alert-error></jhi-alert-error>
-    <dl class="dl-horizontal jh-entity-details">
-        <dt><span>Localidade</span></dt>
-        <dd>
-            <span>{{vm.consulta.localidade}}</span>
-        </dd>
-        <dt><span>Criado Em</span></dt>
-        <dd>
-            <span>{{vm.consulta.criadoEm | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span>Data Consulta</span></dt>
-        <dd>
-            <span>{{vm.consulta.dataConsulta | date:'medium'}}</span>
-        </dd>
-        <dt><span>Procedimento</span></dt>
-        <dd>
-            <a ui-sref="procedimento-detail({id:vm.consulta.procedimento.id})">{{vm.consulta.procedimento.descricao}}</a>
-        </dd>
-        <dt><span>Cooperado</span></dt>
-        <dd>
-            <a ui-sref="cooperado-detail({id:vm.consulta.cooperado.id})">{{vm.consulta.cooperado.nome}}</a>
-        </dd>
-        <dt><span>Beneficiario</span></dt>
-        <dd>
-            <a ui-sref="beneficiario-detail({id:vm.consulta.beneficiario.id})">{{vm.consulta.beneficiario.nome}}</a>
-        </dd>
-    </dl>
+    <div class="ibox-content ">
+        <div>
 
-    <button type="submit"
-            ui-sref="{{ vm.previousState }}"
-            class="btn btn-info">
-        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
-    </button>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="dl-horizontal jh-entity-details">
+                <dt><span>Localidade</span></dt>
+                <dd>
+                    <span>{{vm.consulta.localidade}}</span>
+                </dd>
+                <dt><span>Criado Em</span></dt>
+                <dd>
+                    <span>{{vm.consulta.criadoEm | date:'mediumDate'}}</span>
+                </dd>
+                <dt><span>Data Consulta</span></dt>
+                <dd>
+                    <span>{{vm.consulta.dataConsulta | date:'medium'}}</span>
+                </dd>
+                <dt><span>Procedimento</span></dt>
+                <dd>
+                    <a ui-sref="procedimento-detail({id:vm.consulta.procedimento.id})">{{vm.consulta.procedimento.descricao}}</a>
+                </dd>
+                <dt><span>Cooperado</span></dt>
+                <dd>
+                    <a ui-sref="cooperado-detail({id:vm.consulta.cooperado.id})">{{vm.consulta.cooperado.nome}}</a>
+                </dd>
+                <dt><span>Beneficiario</span></dt>
+                <dd>
+                    <a ui-sref="beneficiario-detail({id:vm.consulta.beneficiario.id})">{{vm.consulta.beneficiario.nome}}</a>
+                </dd>
+            </dl>
 
-    <button type="button" ui-sref="consulta-detail.edit({id:vm.consulta.id})" class="btn btn-primary">
-        <span class="glyphicon glyphicon-pencil"></span>
-        <span class="hidden-xs hidden-sm"> Edit</span>
-    </button>
+            <button type="submit"
+                    ui-sref="{{ vm.previousState }}"
+                    class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button" ui-sref="consulta-detail.edit({id:vm.consulta.id})" class="btn btn-primary">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <span class="hidden-xs hidden-sm"> Edit</span>
+            </button>
+        </div>
+    </div>
 </div>
+
