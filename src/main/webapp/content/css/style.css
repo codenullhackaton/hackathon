@@ -4630,9 +4630,9 @@ table.table-mail tr td {
 /* BACKGROUNDS */
 
 .gradient-bg {
-    background: #085078; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #085078, #85D8CE); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #085078, #85D8CE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #087858; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #087858, #85D8CE); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #087858, #85D8CE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
 
@@ -5398,12 +5398,12 @@ body.mini-navbar.fixed-sidebar .logo-element {
     max-width: 400px;
     z-index: 100;
     margin: 0 auto;
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 .lockscreen.middle-box {
     width: 200px;
-    padding-top: 110px;
+    padding-top: 20px;
 }
 
 .loginscreen.middle-box {
@@ -5807,17 +5807,17 @@ a.compose-mail {
 }
 
 .profile-image {
-    width: 120px;
+    width: 128px;
     float: left;
 }
 
 .profile-image img {
-    width: 96px;
-    height: 96px;
+    width: 128px;
+    height: 128px;
 }
 
 .profile-info {
-    margin-left: 120px;
+    margin-left: 140px;
 }
 
 .feed-activity-list .feed-element {

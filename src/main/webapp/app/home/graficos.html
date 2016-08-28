@@ -1,112 +1,111 @@
-<div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Consultas/Mês
-                        <!--<small>With custom colors.</small>-->
-                    </h5>
-                    <div ibox-tools></div>
-                </div>
-                <div class="ibox-content">
-                    <div>
-                        <canvas linechart options="vm.chart.lineOptions" data="vm.chart.lineDataGeral" height="140" responsive=true  ></canvas>
-                    </div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Consultas/Mês
+                    <!--<small>With custom colors.</small>-->
+                </h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                <div>
+                    <canvas linechart options="vm.chart.lineOptions" data="vm.chart.lineDataGeral" height="140"
+                            responsive=true></canvas>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="col-lg-3">
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <span class="label label-success pull-right">Mês</span>
-            <h5>Consultas</h5>
-        </div>
-        <div class="ibox-content">
-            <h1 class="no-margins">{{vm.resumo.totalConsultas}}</h1>
-
-            <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-success pull-right">Mês</span>
+                <h5>Consultas</h5>
             </div>
-            <small>Total nesse mês</small>
-        </div>
-    </div>
-</div>
-<div class="col-lg-3">
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <span class="label label-info pull-right">Mês</span>
-            <h5>Valores Arrecadados</h5>
-        </div>
-        <div class="ibox-content">
-            <h1 class="no-margins">{{vm.resumo.totalValor | currency: 'R$'}}</h1>
+            <div class="ibox-content">
+                <h1 class="no-margins">{{vm.resumo.totalConsultas}}</h1>
 
-            <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
-            </div>
-            <small>Total nesse mês</small>
-        </div>
-    </div>
-</div>
-<div class="col-lg-3">
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <span class="label label-primary pull-right">Anual</span>
-            <h5>Arrecadado</h5>
-        </div>
-        <div class="ibox-content">
-            <h1 class="no-margins">{{vm.resumo.valorArrecadadoAno | currency: 'R$'}}</h1>
-
-            <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i>
-            </div>
-            <small>Total no ano</small>
-        </div>
-    </div>
-</div>
-<div class="col-lg-3">
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <span class="label label-danger pull-right"></span>
-            <h5>Consultas</h5>
-        </div>
-        <div class="ibox-content">
-            <h1 class="no-margins">{{vm.resumo.proximasConsultas}}</h1>
-
-            <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
-            </div>
-            <small>Próximas Consultas</small>
-        </div>
-    </div>
-</div>
-</div>
-
-<div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Consultas/Mês
-                        <!--<small>With custom colors.</small>-->
-                    </h5>
-                    <div ibox-tools></div>
+                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i>
                 </div>
-                <div class="ibox-content">
-                    <div>
-                        <canvas linechart options="vm.chart.lineOptions" data="vm.chart.lineData" height="140" ></canvas>
-                    </div>
+                <small>Total nesse mês</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-info pull-right">Mês</span>
+                <h5>Valores Arrecadados</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">{{vm.resumo.totalValor | currency: 'R$'}}</h1>
+
+                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
+                </div>
+                <small>Total nesse mês</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-primary pull-right">Anual</span>
+                <h5>Arrecadado</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">{{vm.resumo.valorArrecadadoAno | currency: 'R$'}}</h1>
+
+                <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i>
+                </div>
+                <small>Total no ano</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-danger pull-right"></span>
+                <h5>Consultas</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">{{vm.resumo.proximasConsultas}}</h1>
+
+                <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
+                </div>
+                <small>Próximas Consultas</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Consultas/Mês
+                    <!--<small>With custom colors.</small>-->
+                </h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                <div>
+                    <canvas linechart options="vm.chart.lineOptions" data="vm.chart.lineData" height="140"></canvas>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Cota/Percentual</h5>
-                    <div ibox-tools></div>
-                </div>
-                <div class="ibox-content">
-                    <div>
-                        <canvas linechart options="vm.chart.lineOptions" data="vm.chart.lineDataCotas" height="140" ></canvas>
-                    </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Cota/Percentual</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                <div>
+                    <canvas linechart options="vm.chart.lineOptions" data="vm.chart.lineDataCotas"
+                            height="140"></canvas>
                 </div>
             </div>
         </div>
