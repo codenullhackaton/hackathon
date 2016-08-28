@@ -70,12 +70,20 @@ Logo styles
 ========================================================================== */
 .navbar-brand.logo {
     padding: 5px 15px;
+    color: #00a86a;
+}
+
+.navbar-brand.logo:hover {
+    color: #00643f;
 }
 
 .logo .logo-img {
-    height: 45px;
+    /*height: 45px;*/
     display: inline-block;
+
 }
+
+
 
 /* ==========================================================================
 Main page styles

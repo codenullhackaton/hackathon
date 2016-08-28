@@ -1,41 +1,98 @@
 <div ng-cloak>
     <div class="row">
-        <div class="col-md-4">
-            <span class="hipster img-responsive img-rounded"></span>
-        </div>
-        <div class="col-md-8">
-            <h1>Welcome, Java Hipster!</h1>
-            <p class="lead">This is your homepage</p>
-
+        <div class="col-md-12">
             <div ng-switch="vm.isAuthenticated()">
-                <div class="alert alert-success" ng-switch-when="true">
-                    You are logged in as user "{{vm.account.login}}".
-                </div>
+                <div ng-switch-when="true">
+                    <div class="row m-t-lg">
+                        <div class="row m-b-lg m-t-lg">
+                            <div class="col-md-6">
+                                <div class="profile-image">
+                                    <img src="/content/images/mailson128.jpg" class="img-circle circle-border m-b-md"
+                                         alt="profile">
+                                </div>
+                                <div class="profile-info">
+                                    <div class="">
+                                        <div>
+                                            <h2 class="no-margins">
+                                                Mailson Isaque Cardoso Peixe
+                                            </h2>
+                                            <h4>Dermatologista</h4>
+                                            <small>
+                                                There are many variations of passages of Lorem Ipsum available, but the
+                                                majority
+                                                have suffered alteration in some form Ipsum available.
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <table class="table small m-b-xs">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="3">Resumo por semana</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>1</strong>
+                                        </td>
+                                        <td>
+                                            <strong>142</strong> Consultas
+                                        </td>
+                                        <td>
+                                            <strong>22</strong> Urgências
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>2</strong>
+                                        </td>
+                                        <td>
+                                            <strong>16</strong> Consultas
+                                        </td>
+                                        <td>
+                                            <strong>0</strong> Urgências
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>3</strong>
+                                        </td>
+                                        <td>
+                                            <strong>200</strong> Consultas
+                                        </td>
+                                        <td>
+                                            <strong>2</strong> Urgências
+                                        </td>
+                                    </tr>
 
-                <div class="alert alert-warning" ng-switch-when="false">
-                    If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-                </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-3 ng-scope">
+                                <small>Consultas no Mês</small>
+                                <h2 class="no-margins">206 480</h2>
 
-                <div class="alert alert-warning" ng-switch-when="false">
-                    You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div ng-include="vm.graficosView"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div ng-include="vm.noticiasView"></div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div ng-include="vm.agendaView"></div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-
-            <p>
-                If you have any question on JHipster:
-            </p>
-
-            <ul>
-                <li><a href="http://jhipster.github.io/" target="_blank">JHipster homepage</a></li>
-                <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank">JHipster on Stack Overflow</a></li>
-                <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank">JHipster bug tracker</a></li>
-                <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank">JHipster public chat room</a></li>
-                <li><a href="https://twitter.com/java_hipster" target="_blank" >follow @java_hipster on Twitter</a></li>
-            </ul>
-
-            <p>
-             <span>If you like JHipster, don't forget to give us a star on </span>&nbsp;<a href="https://github.com/jhipster/generator-jhipster" target="_blank">Github</a>!
-            </p>
         </div>
     </div>
 </div>

@@ -1,0 +1,95 @@
+<div>
+    <nav class="navbar-default navbar-static-side ng-scope" role="navigation">
+        <div class="sidebar-collapse">
+            <ul side-navigation="" class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+
+                    <div class="profile-element dropdown text-center" uib-dropdown="">
+                        <img alt="image" class="img-circle" src="/content/images/profile_small.jpg">
+                        <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" uib-dropdown-toggle=""
+                           href="">
+                            <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font-bold">Clóvis Aparecido</strong>
+                             </span>
+                                <span class="text-muted text-xs block">Cooperado <b class="caret"></b></span>
+                            </span>
+                        </a>
+                        <ul uib-dropdown-menu="" class="animated fadeInRight m-t-xs dropdown-menu">
+                            <li ui-sref-active="active">
+                                <a ui-sref="settings" ng-click="vm.collapseNavbar()">
+                                    <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                                    <span>Configurações</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="password" ng-click="vm.collapseNavbar()">
+                                    <span class="glyphicon glyphicon-lock"></span>&nbsp;
+                                    <span>Senha</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="sessions" ng-click="vm.collapseNavbar()">
+                                    <span class="glyphicon glyphicon-cloud"></span>&nbsp;
+                                    <span>Sessões</span>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a href="" ng-click="vm.logout()" id="logout">
+                                    <span class="glyphicon glyphicon-log-out"></span>&nbsp;
+                                    <span>Sair</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        IN+
+                    </div>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="home" ng-click="vm.collapseNavbar()">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span class="hidden-sm">Home</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="especialidade" ng-click="vm.collapseNavbar()">
+                        <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                        <span>Especialidade</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="cooperado" ng-click="vm.collapseNavbar()">
+                        <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                        <span>Cooperado</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="beneficiario" ng-click="vm.collapseNavbar()">
+                        <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                        <span>Beneficiario</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="procedimento" ng-click="vm.collapseNavbar()">
+                        <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                        <span>Procedimento</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="consulta" ng-click="vm.collapseNavbar()">
+                        <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                        <span>Consulta</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="noticia" ng-click="vm.collapseNavbar()">
+                        <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                        <span>Noticia</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
