@@ -1,10 +1,13 @@
 package br.com.codenull.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import br.com.codenull.domain.Consulta;
+import br.com.codenull.domain.Cooperado;
+import br.com.codenull.domain.chart.LineChart;
 import br.com.codenull.service.ConsultaService;
+import br.com.codenull.service.GraficoService;
 import br.com.codenull.web.rest.util.HeaderUtil;
 import br.com.codenull.web.rest.util.PaginationUtil;
+import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -17,8 +20,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,9 +35,12 @@ import java.util.Optional;
 public class ConsultaResource {
 
     private final Logger log = LoggerFactory.getLogger(ConsultaResource.class);
-        
+
     @Inject
     private ConsultaService consultaService;
+
+    @Inject
+    private GraficoService graficoService;
 
     /**
      * POST  /consultas : Create a new consulta.
@@ -134,5 +142,41 @@ public class ConsultaResource {
         consultaService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("consulta", id.toString())).build();
     }
+
+
+    @RequestMapping(value = "/consulta/cooperado/{idCooperado}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<LineChart> lineChartCooperado(@PathVariable Long idCooperado) throws URISyntaxException {
+        log.debug("REST request to line chart cooperados Cooperado :");
+
+        //LineChart lineChart = criarLineChartFake();
+        LineChart lineChart = graficoService.consultasPorMes(idCooperado, null, null);
+
+        /*Cooperado result = cooperadoService.save(cooperado);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert("cooperado", cooperado.getId().toString()))
+            .body(result);*/
+        return ResponseEntity.ok(lineChart);
+    }
+
+    private LineChart criarLineChartFake() {
+        LineChart line = new LineChart();
+        criarLabelsAndDados(line);
+        return line;
+    }
+
+    private void criarLabelsAndDados(LineChart line) {
+        YearMonth mesAno = YearMonth.of(2016, 1);
+        YearMonth hoje = YearMonth.of(2016, 8);
+        while (mesAno.isBefore(hoje)){
+            line.addLabel(mesAno.getMonth().name());
+            line.addDados(BigDecimal.valueOf(mesAno.getMonthValue() + 50));
+            mesAno = mesAno.plusMonths(1);
+        }
+
+    }
+
 
 }
