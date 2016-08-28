@@ -5,9 +5,9 @@
         .module('hackathonApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'Auth', '$state', '$rootScope', '$timeout', 'ConsultaCooperado'];
+    HomeController.$inject = ['$scope', 'Principal', 'Noticia', 'Auth', '$state', '$rootScope', '$timeout'];
 
-    function HomeController($scope, Principal, Auth, $state, $rootScope, $timeout, ConsultaCooperado) {
+    function HomeController($scope, Principal, Noticia, Auth, $state, $rootScope, $timeout) {
 
         var vm = this;
 
@@ -34,9 +34,11 @@
 
         $scope.$on('authenticationSuccess', function () {
             getAccount();
+            getNoticias();
         });
 
         getAccount();
+        getNoticias();
 
         $timeout(function () {
             angular.element('#username').focus();
@@ -94,6 +96,18 @@
                 vm.account = account;
                 vm.isAuthenticated = Principal.isAuthenticated;
             });
+        }
+
+        function getNoticias() {
+            Noticia.query(onSuccess, onError);
+            function onSuccess(data, headers) {
+                console.log('NOTICIAS: ' + data);
+                vm.noticias = data;
+            }
+
+            function onError(error) {
+                AlertService.error(error.data.message);
+            }
         }
 
         function register() {
