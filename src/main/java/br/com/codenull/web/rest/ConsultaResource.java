@@ -1,8 +1,10 @@
 package br.com.codenull.web.rest;
 
 import br.com.codenull.domain.Consulta;
+import br.com.codenull.domain.Cooperado;
 import br.com.codenull.domain.chart.LineChart;
 import br.com.codenull.service.ConsultaService;
+import br.com.codenull.service.GraficoService;
 import br.com.codenull.web.rest.util.HeaderUtil;
 import br.com.codenull.web.rest.util.PaginationUtil;
 import com.codahale.metrics.annotation.Timed;
@@ -36,6 +38,9 @@ public class ConsultaResource {
 
     @Inject
     private ConsultaService consultaService;
+
+    @Inject
+    private GraficoService graficoService;
 
     /**
      * POST  /consultas : Create a new consulta.
@@ -146,7 +151,8 @@ public class ConsultaResource {
     public ResponseEntity<LineChart> lineChartCooperado(@PathVariable Long idCooperado) throws URISyntaxException {
         log.debug("REST request to line chart cooperados Cooperado :");
 
-        LineChart lineChart = criarLineChartFake();
+        //LineChart lineChart = criarLineChartFake();
+        LineChart lineChart = graficoService.consultasPorMes(idCooperado, null, null);
 
         /*Cooperado result = cooperadoService.save(cooperado);
         return ResponseEntity.ok()
@@ -160,7 +166,6 @@ public class ConsultaResource {
         criarLabelsAndDados(line);
         return line;
     }
-
 
     private void criarLabelsAndDados(LineChart line) {
         YearMonth mesAno = YearMonth.of(2016, 1);
