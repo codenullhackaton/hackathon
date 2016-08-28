@@ -1,7 +1,6 @@
 package br.com.codenull.service;
 
 import br.com.codenull.domain.Consulta;
-import br.com.codenull.domain.Cooperado;
 import br.com.codenull.domain.chart.LineChart;
 import br.com.codenull.repository.ConsultaRepository;
 import org.slf4j.Logger;
@@ -33,9 +32,9 @@ public class GraficoService {
         Stream<Consulta> stream = consultaRepository.findByCooperadoId(cooperado).stream();
         int offset = offsetMeses == null ? 3 : offsetMeses;
         if (dataBase != null) {
-            stream.filter(p -> p.getDataConsulta().minusMonths(offset).compareTo(dataBase) > 0 || p.getDataConsulta().plusMonths(offset).compareTo(dataBase) < 0);
+            stream = stream.filter(p -> p.getDataConsulta().minusMonths(offset).compareTo(dataBase) > 0 || p.getDataConsulta().plusMonths(offset).compareTo(dataBase) < 0);
         } else {
-            stream.filter(p -> p.getDataConsulta().minusMonths(offset).compareTo(ZonedDateTime.now()) > 0 || p.getDataConsulta().plusMonths(offset).compareTo(ZonedDateTime.now()) < 0);
+            stream = stream.filter(p -> p.getDataConsulta().minusMonths(offset).compareTo(ZonedDateTime.now()) > 0 || p.getDataConsulta().plusMonths(offset).compareTo(ZonedDateTime.now()) < 0);
         }
         stream.sorted((c1, c2) -> c1.getDataConsulta().compareTo(c2.getDataConsulta()))
             .forEachOrdered( p-> {
