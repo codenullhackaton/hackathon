@@ -47,6 +47,14 @@
             </button>
 
             <button type="button"
+                    title="Clique para imprimir o boleto."
+                    ng-click="vm.boleto()"
+                    class="btn btn-warning">
+                <i class="fa fa-print"></i>
+                <span class="hidden-xs hidden-sm"> Imprimir Boleto</span>
+            </button>
+
+            <button type="button"
                     title="Clique para imprimir a nota fiscal eletrônica."
                     ng-click="vm.notaFiscal()"
                     class="btn btn-warning">

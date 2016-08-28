@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -7,13 +7,13 @@
 
     NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService'];
 
-    function NavbarController ($state, Auth, Principal, ProfileService, LoginService) {
+    function NavbarController($state, Auth, Principal, ProfileService, LoginService) {
         var vm = this;
 
         vm.isNavbarCollapsed = true;
         vm.isAuthenticated = Principal.isAuthenticated;
 
-        ProfileService.getProfileInfo().then(function(response) {
+        ProfileService.getProfileInfo().then(function (response) {
             vm.inProduction = response.inProduction;
             vm.swaggerEnabled = response.swaggerEnabled;
         });
@@ -23,6 +23,7 @@
         vm.toggleNavbar = toggleNavbar;
         vm.collapseNavbar = collapseNavbar;
         vm.$state = $state;
+        vm.estatutoSocial = estatutoSocial;
 
         function login() {
             collapseNavbar();
@@ -41,6 +42,10 @@
 
         function collapseNavbar() {
             vm.isNavbarCollapsed = true;
+        }
+
+        function estatutoSocial() {
+            window.open('http://localhost:8080/content/pdf/estatuto-social.pdf');
         }
     }
 })();

@@ -10,6 +10,8 @@
             <a class="navbar-brand logo" href="#/" ng-click="vm.collapseNavbar()">
                 <img class="logo-img" src="content/images/unimed-logo-40.jpg"/>
             </a>
+
+
         </div>
 
         <div id="navbar" class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed" ng-switch="vm.isAuthenticated()">
@@ -70,6 +72,12 @@
                     </ul>
                 </li>
 
+                <li ui-sref-active="active">
+                    <a ui-sref="estatutosocial" href="#/" ng-click="vm.estatutoSocial()">
+                        <span class="glyphicon glyphicon-download-alt"></span>
+                        <span class="hidden-sm">Estatuto Social</span>
+                    </a>
+                </li>
 
                 <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu">
