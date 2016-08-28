@@ -20,7 +20,7 @@
         }
 
         function boleto() {
-            window.open('http://localhost:8080/content/images/boleto.png');
+            window.open('http://localhost:8080/content/images/boleto.jpg');
         }
 
         var unsubscribe = $rootScope.$on('hackathonApp:consultaUpdate', function(event, result) {
