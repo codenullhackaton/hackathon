@@ -30,7 +30,7 @@ import java.util.Optional;
 public class ConsultaResource {
 
     private final Logger log = LoggerFactory.getLogger(ConsultaResource.class);
-        
+
     @Inject
     private ConsultaService consultaService;
 
@@ -97,6 +97,22 @@ public class ConsultaResource {
         Page<Consulta> page = consultaService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/consultas");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    @RequestMapping(
+        value = "/consultas/cooperado/{idCooperado}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<Consulta>> getConsultasPorCooperado(@PathVariable Long idCooperado) {
+        log.debug("REST request to get Consultas por Cooperado: {}", idCooperado);
+
+        List<Consulta> consultas = consultaService.findConsultasByCooperadoId(idCooperado);
+        return Optional.ofNullable(consultas)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**

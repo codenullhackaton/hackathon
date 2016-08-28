@@ -35,6 +35,16 @@
                     data.criadoEm = DateUtils.convertLocalDateToServer(data.criadoEm);
                     return angular.toJson(data);
                 }
+            },
+            'getConsultasPorCooperado': {
+                url: 'api/consultas/cooperado/:idCoopeado',
+                method: 'GET',
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+                }
             }
         });
     }

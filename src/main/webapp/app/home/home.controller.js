@@ -5,9 +5,9 @@
         .module('hackathonApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'calendarConfig'];
+    HomeController.$inject = ['$scope', 'Principal', 'LoginService', 'Consulta', '$state', 'calendarConfig'];
 
-    function HomeController($scope, Principal, LoginService, $state, calendarConfig) {
+    function HomeController($scope, Principal, LoginService, Consulta, $state, calendarConfig) {
         var vm = this;
 
         vm.graficosView = '/app/home/graficos.html';
@@ -37,15 +37,18 @@
 
         // TODO AGENDA
         vm.eventsBack = [];
+
+        buscarConsultasPorCooperado();
         function buscarConsultasPorCooperado() {
-            // Consulta.getConsultasByCooperado(onSuccess, onError);
-            // function onSuccess(data, headers) {
-            //     return vm.consultas = data;
-            // }
-            // function onError(error) {
-            //     AlertService.error(error.data.message);
-            // }
-        }
+            Consulta.getConsultasPorCooperado({id: 1000}, onSuccess, onError);
+            function onSuccess(data) {
+                console.log('>>> BUSCAR CONSULTAS POR COOPERADO: ' + data);
+                return vm.consultas = data;
+            }
+            function onError(error) {
+                AlertService.error(error.data.message);
+            }
+        };
 
         vm.calendarView = 'month';
         vm.viewDate = new Date();
@@ -108,5 +111,8 @@
             $event.stopPropagation();
             event[field] = !event[field];
         };
+
+        vm.temCompromissoHoje = false;
+
     }
 })();
