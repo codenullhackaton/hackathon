@@ -117,6 +117,9 @@
         function succesCooperadoByLogin(data) {
             vm.cooperado= data;
             ConsultaCooperado.consultasPorCooperado({id: vm.cooperado.id}, onSuccessLineChart);
+            ConsultaCooperado.consultasResumoPorCooperado({id: vm.cooperado.id}, onSuccessResumo);
+            ConsultaCooperado.consultasResumoPorCooperadoCotas({id: vm.cooperado.id}, onSuccessLineCotas);
+            ConsultaCooperado.consultasResumoGeral(onSuccessGeral);
             buscarConsultarPorCooperadoParaAgenda(vm.cooperado.id);
         }
 
