@@ -3,6 +3,7 @@ package br.com.codenull.service;
 import br.com.codenull.domain.Consulta;
 import br.com.codenull.domain.chart.LineChart;
 import br.com.codenull.repository.ConsultaRepository;
+import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -28,13 +28,13 @@ public class GraficoService {
 
     public LineChart consultasPorMes(Long cooperado, ZonedDateTime dataBase, Integer offsetMeses) {
         LineChart retorno = new LineChart();
-        Map<String, BigDecimal> mapa = new HashMap<>();
+        Map<String, BigDecimal> mapa = Maps.newLinkedHashMap();
         Stream<Consulta> stream = consultaRepository.findByCooperadoId(cooperado).stream();
         int offset = offsetMeses == null ? 3 : offsetMeses;
         if (dataBase != null) {
-            stream = stream.filter(p -> p.getDataConsulta().minusMonths(offset).compareTo(dataBase) > 0 || p.getDataConsulta().plusMonths(offset).compareTo(dataBase) < 0);
+            stream = stream.filter(p -> p.getDataConsulta().minusMonths(offset).compareTo(dataBase) < 0 && p.getDataConsulta().plusMonths(offset).compareTo(dataBase) > 0);
         } else {
-            stream = stream.filter(p -> p.getDataConsulta().minusMonths(offset).compareTo(ZonedDateTime.now()) > 0 || p.getDataConsulta().plusMonths(offset).compareTo(ZonedDateTime.now()) < 0);
+            stream = stream.filter(p -> p.getDataConsulta().minusMonths(offset).compareTo(ZonedDateTime.now()) < 0 && p.getDataConsulta().plusMonths(offset).compareTo(ZonedDateTime.now()) > 0);
         }
         stream.sorted((c1, c2) -> c1.getDataConsulta().compareTo(c2.getDataConsulta()))
             .forEachOrdered( p-> {
