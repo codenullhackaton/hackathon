@@ -2,13 +2,13 @@ package br.com.codenull.domain;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Cooperado.
@@ -32,7 +32,7 @@ public class Cooperado implements Serializable {
     private String crm;
 
     @NotNull
-    @Column(name = "valor_cota", precision=10, scale=2, nullable = false)
+    @Column(name = "valor_cota", precision = 10, scale = 2, nullable = false)
     private BigDecimal valorCota;
 
     @NotNull
@@ -41,9 +41,13 @@ public class Cooperado implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "cooperado_especialidades",
-               joinColumns = @JoinColumn(name="cooperados_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="especialidades_id", referencedColumnName="ID"))
+        joinColumns = @JoinColumn(name = "cooperados_id", referencedColumnName = "ID"),
+        inverseJoinColumns = @JoinColumn(name = "especialidades_id", referencedColumnName = "ID"))
     private Set<Especialidade> especialidades = new HashSet<>();
+
+
+    @ManyToOne
+    private User user;
 
     public Long getId() {
         return id;
@@ -130,6 +134,14 @@ public class Cooperado implements Serializable {
         this.especialidades = especialidades;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -139,7 +151,7 @@ public class Cooperado implements Serializable {
             return false;
         }
         Cooperado cooperado = (Cooperado) o;
-        if(cooperado.id == null || id == null) {
+        if (cooperado.id == null || id == null) {
             return false;
         }
         return Objects.equals(id, cooperado.id);

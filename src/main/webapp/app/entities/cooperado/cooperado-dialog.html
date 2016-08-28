@@ -71,6 +71,13 @@
         </div>
 
         <div class="form-group">
+            <label for="field_user">Usuário</label>
+            <select class="form-control" id="field_user" name="user" ng-model="vm.cooperado.user" ng-options="user as user.login for user in vm.usuarios track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label for="field_especialidades">Especialidades</label>
             <select class="form-control" id="field_especialidades" multiple name="especialidades" ng-model="vm.cooperado.especialidades" ng-options="especialidade as especialidade.descricao for especialidade in vm.especialidades track by especialidade.id"></select>
         </div>

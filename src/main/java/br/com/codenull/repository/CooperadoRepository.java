@@ -19,4 +19,5 @@ public interface CooperadoRepository extends JpaRepository<Cooperado,Long> {
     @Query("select cooperado from Cooperado cooperado left join fetch cooperado.especialidades where cooperado.id =:id")
     Cooperado findOneWithEagerRelationships(@Param("id") Long id);
 
+    Cooperado findFirstByUserLogin(String login);
 }

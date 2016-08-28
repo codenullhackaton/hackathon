@@ -5,8 +5,10 @@
         .module('hackathonApp')
         .controller('HomeController', HomeController);
 
+    HomeController.$inject = ['$scope', 'Principal', 'Noticia', 'Auth', '$state', '$rootScope', '$timeout', 'ConsultaCooperado', 'Cooperado'];
     HomeController.$inject = ['$window', '$scope', 'Noticia', 'Principal', 'Consulta', 'Auth', '$state', '$rootScope', '$timeout', 'calendarConfig', 'AlertService', 'moment', '$ocLazyLoad', 'ConsultaCooperado'];
 
+    function HomeController($scope, Principal, Noticia, Auth, $state, $rootScope, $timeout, ConsultaCooperado, Cooperado) {
     function HomeController($window, $scope, Noticia, Principal, Consulta, Auth, $state, $rootScope, $timeout, calendarConfig, AlertService, moment, $ocLazyLoad, ConsultaCooperado) {
 
         var vm = this;
@@ -30,7 +32,6 @@
         vm.isAuthenticated = null;
 
         vm.register = register;
-        var lineChart = ConsultaCooperado.consultasPorCooperado({id: 1000}, onSuccessLineChart);
 
         $scope.$on('authenticationSuccess', function () {
             getAccount();
@@ -105,7 +106,18 @@
             Principal.identity().then(function (account) {
                 vm.account = account;
                 vm.isAuthenticated = Principal.isAuthenticated;
+                console.log("vai buscar o cooperado", account.login);
+                Cooperado.getByLogin({login: account.login}, succesCooperadoByLogin, errorCooperadoByLogin);
             });
+        }
+
+        function succesCooperadoByLogin(data) {
+            vm.cooperado= data;
+            ConsultaCooperado.consultasPorCooperado({id: vm.cooperado.id}, onSuccessLineChart);
+        }
+
+        function errorCooperadoByLogin(error) {
+            console.log("erro ao buscar o cooperado", error);
         }
 
         function getNoticias() {

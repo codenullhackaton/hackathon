@@ -20,7 +20,7 @@ import java.util.List;
 public class CooperadoService {
 
     private final Logger log = LoggerFactory.getLogger(CooperadoService.class);
-    
+
     @Inject
     private CooperadoRepository cooperadoRepository;
 
@@ -38,11 +38,11 @@ public class CooperadoService {
 
     /**
      *  Get all the cooperados.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<Cooperado> findAll(Pageable pageable) {
         log.debug("Request to get all Cooperados");
         Page<Cooperado> result = cooperadoRepository.findAll(pageable);
@@ -55,7 +55,7 @@ public class CooperadoService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Cooperado findOne(Long id) {
         log.debug("Request to get Cooperado : {}", id);
         Cooperado cooperado = cooperadoRepository.findOneWithEagerRelationships(id);
@@ -70,5 +70,12 @@ public class CooperadoService {
     public void delete(Long id) {
         log.debug("Request to delete Cooperado : {}", id);
         cooperadoRepository.delete(id);
+    }
+    @Transactional(readOnly = true)
+    public Cooperado findFirstByUserLogin(String login) {
+        log.debug("Request to get Cooperado by Login : {}", login);
+        Cooperado cooperado = cooperadoRepository.findFirstByUserLogin(login);
+        cooperado.getEspecialidades().size();
+        return cooperado;
     }
 }

@@ -5,9 +5,9 @@
         .module('hackathonApp')
         .controller('CooperadoDialogController', CooperadoDialogController);
 
-    CooperadoDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Cooperado', 'Especialidade'];
+    CooperadoDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Cooperado', 'Especialidade', 'User'];
 
-    function CooperadoDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Cooperado, Especialidade) {
+    function CooperadoDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Cooperado, Especialidade, User) {
         var vm = this;
 
         vm.cooperado = entity;
@@ -16,6 +16,7 @@
         vm.openCalendar = openCalendar;
         vm.save = save;
         vm.especialidades = Especialidade.query();
+        vm.usuarios = User.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
