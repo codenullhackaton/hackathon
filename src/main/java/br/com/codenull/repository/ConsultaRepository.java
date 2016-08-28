@@ -4,6 +4,7 @@ import br.com.codenull.domain.Consulta;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Spring Data JPA repository for the Consulta entity.

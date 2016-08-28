@@ -2,7 +2,9 @@ package br.com.codenull.service;
 
 import br.com.codenull.domain.Consulta;
 import br.com.codenull.domain.Cooperado;
+import br.com.codenull.domain.ResumoCooperado;
 import br.com.codenull.repository.ConsultaRepository;
+import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -11,7 +13,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * Service Implementation for managing Consulta.
@@ -24,6 +33,8 @@ public class ConsultaService {
 
     @Inject
     private ConsultaRepository consultaRepository;
+    @Inject
+    private CooperadoService cooperadoService;
 
     /**
      * Save a consulta.
@@ -87,4 +98,30 @@ public class ConsultaService {
         log.debug("REST request to get Consultas por Beneficiario: {}", idBeneficiario);
         return consultaRepository.findByBeneficiarioId(idBeneficiario);
     }
+
+    public ResumoCooperado getResumoCooperado(Long cooperadoId){
+
+        ResumoCooperado resumoCooperado = new ResumoCooperado();
+        Map<String, BigDecimal> mapa = Maps.newLinkedHashMap();
+        Stream<Consulta> consultas = consultaRepository.findByCooperadoId(cooperadoId).stream();
+        LocalDate hoje = LocalDate.now();
+        consultas  = consultas .filter(p -> p.getDataConsulta().getYear()== hoje.getYear() && p.getDataConsulta().getMonthValue() == hoje.getMonthValue());
+
+        consultas
+            .forEach(p -> {
+                resumoCooperado.setTotalConsultas(resumoCooperado.getTotalConsultas()+1);
+                resumoCooperado.somarValor(p.getProcedimento().getValor());
+                TemporalField semanaAno = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+                if(p.getDataConsulta().get(semanaAno) == hoje.get(semanaAno)){
+                    resumoCooperado.setTotalSemana(resumoCooperado.getTotalSemana()+1);
+                }
+            });
+        Cooperado cooperado = cooperadoService.findOne(cooperadoId);
+        resumoCooperado.setValorCotaOriginal(cooperado.getValorCota());
+        resumoCooperado.setValorCotaReajustado(cooperado.getValorCota());
+        return resumoCooperado;
+    }
+
+
+
 }

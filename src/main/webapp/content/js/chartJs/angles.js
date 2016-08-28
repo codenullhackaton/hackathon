@@ -52,7 +52,9 @@ angles.chart = function (type) {
                     $scope.size();
                     chart = new Chart(ctx);
                 };
-
+                if($scope.options === undefined){
+                    $scope.options = {};
+                }
                 if($scope.responsive || $scope.resize)
                     $scope.options.responsive = true;
 

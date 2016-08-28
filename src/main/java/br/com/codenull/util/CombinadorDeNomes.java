@@ -261,21 +261,21 @@ public class CombinadorDeNomes {
     private static final List<String> nomesCompletos = new ArrayList<>(3000);
     private static final List<String> localidades = Arrays.asList("Pronto Atendimento Unimed", "Hospital Santa Rita", "Hospital Santa Casa", "Clinica própria", "Hospital São Marcos");
 
-    public static void mainn(String[] args) {
+    public static void mains(String[] args) {
         System.out.println("Iniciando");
         for (int i = 0; i < 3000; i++) {
             nomesCompletos.add(montaNome());
         }
         for (int i = 0; i < QTD_COOPERADOS; i++) {
             String cooperado = nomesCompletos.get(random.nextInt(nomesCompletos.size()));
-            System.out.println("INSERT INTO Cooperado(ID, nome, CRM, valor_cota, adesao) values(nextVal('hibernate_sequence'), '" + cooperado + "', '" + randomCRM() + "', " + randomValorCota() + ", '" + randomAdesao() + "');");
+            //System.out.println("INSERT INTO Cooperado(ID, nome, CRM, valor_cota, adesao) values(nextVal('hibernate_sequence'), '" + cooperado + "', '" + randomCRM() + "', " + randomValorCota() + ", '" + randomAdesao() + "');");
             cooperados.add(i, cooperado);
         }
         for (String nomesCompleto : nomesCompletos) {
-            System.out.println("INSERT INTO Beneficiario(ID, nome, endereco) VALUES(nextval('hibernate_sequence'), '" + nomesCompleto + "', '" + randomEndereco() + "');");
+            //System.out.println("INSERT INTO Beneficiario(ID, nome, endereco) VALUES(nextval('hibernate_sequence'), '" + nomesCompleto + "', '" + randomEndereco() + "');");
         }
         for (String especialidade : especialidades) {
-            System.out.println("INSERT INTO Especialidade(ID, descricao) VALUES(nextval('hibernate_sequence'), '" + especialidade + "');");
+            //System.out.println("INSERT INTO Especialidade(ID, descricao) VALUES(nextval('hibernate_sequence'), '" + especialidade + "');");
         }
         for (String cooperado : cooperados) {
             int qtdEspecialidades = random.nextInt(2) + 1;
@@ -285,26 +285,38 @@ public class CombinadorDeNomes {
                 if (CLINICA_MEDICA.equals(especialidade)) {
                     inseriuClinicaMedica = true;
                 }
-                System.out.println("INSERT INTO Cooperado_Especialidades(cooperados_ID, especialidades_ID) VALUES((select max(ID) from Cooperado WHERE nome = '" + cooperado + "'), (select max(ID) FROM Especialidade WHERE descricao = '" + especialidade + "'));");
+                //System.out.println("INSERT INTO Cooperado_Especialidades(cooperados_ID, especialidades_ID) VALUES((select max(ID) from Cooperado WHERE nome = '" + cooperado + "'), (select max(ID) FROM Especialidade WHERE descricao = '" + especialidade + "'));");
             }
             if (!inseriuClinicaMedica) {
-                System.out.println("INSERT INTO Cooperado_Especialidades(cooperados_ID, especialidades_ID) VALUES((select max(ID) from Cooperado WHERE nome = '" + cooperado + "'), (select max(ID) FROM Especialidade WHERE descricao = '" + CLINICA_MEDICA + "'));");
+                //System.out.println("INSERT INTO Cooperado_Especialidades(cooperados_ID, especialidades_ID) VALUES((select max(ID) from Cooperado WHERE nome = '" + cooperado + "'), (select max(ID) FROM Especialidade WHERE descricao = '" + CLINICA_MEDICA + "'));");
             }
         }
         for (String procedimento : procedimentos) {
-            System.out.println("INSERT INTO Procedimento(ID, descricao, duracao, valor) VALUES(nextval('hibernate_sequence'), '" + procedimento + "', " + getRandomDuracao() + ", " + getRandomValor() + ");");
-        }
-        for (int i = 1; i <= 30; i++) {
-            inserirConsulta("09", i);
+            //System.out.println("INSERT INTO Procedimento(ID, descricao, duracao, valor) VALUES(nextval('hibernate_sequence'), '" + procedimento + "', " + getRandomDuracao() + ", " + getRandomValor() + ");");
         }
         for (int i = 1; i <= 31; i++) {
-            inserirConsulta("10", i);
+            inserirConsulta("01", i);
+        }
+        for (int i = 1; i <= 29; i++) {
+            inserirConsulta("02", i);
+        }
+        for (int i = 1; i <= 31; i++) {
+            inserirConsulta("03", i);
         }
         for (int i = 1; i <= 30; i++) {
-            inserirConsulta("11", i);
+            inserirConsulta("04", i);
+        }
+        for (int i = 1; i <= 31; i++) {
+            inserirConsulta("05", i);
+        }
+        for (int i = 1; i <= 30; i++) {
+            inserirConsulta("06", i);
+        }
+        for (int i = 1; i <= 31; i++) {
+            inserirConsulta("07", i);
         }
         for (int i =1; i <= 31; i++) {
-            inserirConsulta("12", i);
+            inserirConsulta("08", i);
         }
     }
 
@@ -312,7 +324,7 @@ public class CombinadorDeNomes {
         if (fiftyFifty()) {
             String dia = diaInt < 10 ? ("0" + diaInt) : Integer.toString(diaInt);
             for (int i = 0; i <= random.nextInt(4); i++) {
-                System.out.println("INSERT INTO Consulta(id, data_consulta, localidade, criado_em, procedimento_id, cooperado_id, beneficiario_id) VALUES(nextval('hibernate_sequence'), '2016-" + mes + "-" + dia + " " + randomHora(i) + ":00.000', '" + localidades.get(random.nextInt(localidades.size())) + "', now(), (select max(id)from procedimento where descricao = '" + procedimentos.get(random.nextInt(procedimentos.size())) + "'), (select max(id) from cooperado where nome = '" + cooperados.get(random.nextInt(cooperados.size())) + "'), (select max(id) from beneficiario where nome = '" + nomesCompletos.get(random.nextInt(nomesCompletos.size())) + "'));");
+                System.out.println("INSERT INTO Consulta(id, data_consulta, localidade, criado_em, procedimento_id, cooperado_id, beneficiario_id) VALUES(nextval('hibernate_sequence'), '2016-" + mes + "-" + dia + " " + randomHora(i) + ":00.000', '" + localidades.get(random.nextInt(localidades.size())) + "', now(), (select id from procedimento order by random() limit 1), (select id from cooperado order by random() limit 1), (select id from beneficiario order by random() limit 1));");
             }
         }
     }

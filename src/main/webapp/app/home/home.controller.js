@@ -21,6 +21,7 @@
         vm.rememberMe = true;
         vm.requestResetPassword = requestResetPassword;
         vm.username = null;
+        vm.resumo = {};
 
         vm.graficosView = '/app/home/graficos.html';
         vm.agendaView = '/app/home/agenda.html';
@@ -30,7 +31,11 @@
         vm.isAuthenticated = null;
 
         vm.register = register;
-
+      /*  var lineChart = ConsultaCooperado.consultasPorCooperado({id: 1000}, onSuccessLineChart);
+        var resmo = ConsultaCooperado.consultasResumoPorCooperado({id: 1000}, onSuccessResumo);
+        var cotas = ConsultaCooperado.consultasResumoPorCooperadoCotas({id: 1000}, onSuccessLineCotas);
+        var geral = ConsultaCooperado.consultasResumoGeral(onSuccessGeral);
+*/
         $scope.$on('authenticationSuccess', function () {
             getAccount();
             getNoticias();
@@ -142,7 +147,7 @@
         /**
          * Data for Polar chart
          */
-        vm.chart.polarData = [
+     /*   vm.chart.polarData = [
             {
                 value: 300,
                 color: "#a3e1d4",
@@ -161,12 +166,12 @@
                 highlight: "#1ab394",
                 label: "Laptop"
             }
-        ];
+        ];*/
 
         /**
          * Options for Polar chart
          */
-        vm.chart.polarOptions = {
+  /*      vm.chart.polarOptions = {
             scaleShowLabelBackdrop: true,
             scaleBackdropColor: "rgba(255,255,255,0.75)",
             scaleBeginAtZero: true,
@@ -181,11 +186,11 @@
             animateRotate: true,
             animateScale: false
         };
-
+*/
         /**
          * Data for Doughnut chart
          */
-        vm.chart.doughnutData = [
+    /*    vm.chart.doughnutData = [
             {
                 value: 300,
                 color: "#a3e1d4",
@@ -205,11 +210,11 @@
                 label: "Laptop"
             }
         ];
-
+*/
         /**
          * Options for Doughnut chart
          */
-        vm.chart.doughnutOptions = {
+     /*   vm.chart.doughnutOptions = {
             segmentShowStroke: true,
             segmentStrokeColor: "#fff",
             segmentStrokeWidth: 2,
@@ -219,7 +224,7 @@
             animateRotate: true,
             animateScale: false
         };
-
+*/
         /**
          * Data for Line chart
          */
@@ -241,7 +246,7 @@
             ]
         };
 
-        vm.chart.lineDataDashboard4 = {
+      /*  vm.chart.lineDataDashboard4 = {
             labels: ["January", "February", "March", "April", "May", "June", "July"],
             datasets: [
                 {
@@ -265,30 +270,88 @@
                     data: [48, 48, 60, 39, 56, 37, 30]
                 }
             ]
-        };
+        };*/
 
         /**
          * Options for Line chart
          */
         this.lineOptions = {
-            scaleShowGridLines: true,
-            scaleGridLineColor: "rgba(0,0,0,.05)",
-            scaleGridLineWidth: 1,
-            bezierCurve: true,
-            bezierCurveTension: 0.4,
-            pointDot: true,
-            pointDotRadius: 4,
-            pointDotStrokeWidth: 1,
-            pointHitDetectionRadius: 20,
-            datasetStroke: true,
-            datasetStrokeWidth: 2,
-            datasetFill: true
+            scaleShowGridLines : true,
+            scaleGridLineColor : "rgba(0,0,0,.05)",
+            scaleGridLineWidth : 1,
+            bezierCurve : true,
+            bezierCurveTension : 0.4,
+            pointDot : true,
+            pointDotRadius : 4,
+            pointDotStrokeWidth : 1,
+            pointHitDetectionRadius : 20,
+            datasetStroke : true,
+            datasetStrokeWidth : 2,
+            datasetFill : true,
+            responsivel : true
+        };
+
+
+        vm.chart.lineDataGeral = {
+            labels: ["January", "February", "March", "April", "May", "June", "July", "August", "Sept", "Octuber"],
+            /*labels: lineChart.labels,*/
+            datasets: [
+                {
+                    label: "Example dataset",
+                    fillColor: "rgba(26,179,148,0.5)",
+                    strokeColor: "rgba(26,179,148,0.7)",
+                    pointColor: "rgba(26,179,148,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(26,179,148,1)",
+                    data: [28, 48, 40, 19, 86, 27, 90, 95, 80, 100]
+                    //data: vm.lineChart.dados
+                },
+                {
+                    label: "Example dataset 2",
+                    fillColor: "rgba(220,220,220,0.5)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                }
+            ]
+        };
+
+        vm.chart.lineDataCotas = {
+            labels: ["January", "February", "March", "April", "May", "June", "July", "August", "Sept", "Octuber"],
+            /*labels: lineChart.labels,*/
+            datasets: [
+                {
+                    label: "Example dataset",
+                    fillColor: "rgba(26,179,148,0.5)",
+                    strokeColor: "rgba(26,179,148,0.7)",
+                    pointColor: "rgba(26,179,148,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(26,179,148,1)",
+                    data: [28, 48, 40, 19, 86, 27, 90, 95, 80, 100]
+                    //data: vm.lineChart.dados
+                },
+                {
+                    label: "Example dataset 2",
+                    fillColor: "rgba(220,220,220,0.5)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                }
+            ]
         };
 
         /**
          * Options for Bar chart
          */
-        vm.chart.barOptions = {
+     /*   vm.chart.barOptions = {
             scaleBeginAtZero: true,
             scaleShowGridLines: true,
             scaleGridLineColor: "rgba(0,0,0,.05)",
@@ -297,12 +360,12 @@
             barStrokeWidth: 2,
             barValueSpacing: 5,
             barDatasetSpacing: 1
-        };
+        };*/
 
         /**
          * Data for Bar chart
          */
-        vm.chart.barData = {
+      /*  vm.chart.barData = {
             labels: ["January", "February", "March", "April", "May", "June", "July"],
             datasets: [
                 {
@@ -322,12 +385,12 @@
                     data: [28, 48, 40, 19, 86, 27, 90]
                 }
             ]
-        };
+        };*/
 
         /**
          * Data for Radar chart
          */
-        vm.chart.radarData = {
+      /*  vm.chart.radarData = {
             labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
             datasets: [
                 {
@@ -351,12 +414,12 @@
                     data: [28, 48, 40, 19, 96, 27, 100]
                 }
             ]
-        };
+        };*/
 
         /**
          * Options for Radar chart
          */
-        vm.chart.radarOptions = {
+       /* vm.chart.radarOptions = {
             scaleShowLine: true,
             angleShowLineOut: true,
             scaleShowLabels: false,
@@ -375,7 +438,7 @@
             datasetStrokeWidth: 2,
             datasetFill: true
         };
-
+*/
         function onSuccessLineChart(data) {
             vm.chart.lineData.labels = data.labels;
             vm.chart.lineData.datasets[0].data = data.dados;
@@ -447,6 +510,31 @@
             $event.stopPropagation();
             event[field] = !event[field];
         };
+        function onSuccessResumo(data){
+            console.log("", data);
+            vm.resumo = data;
+        }
+
+        function onSuccessLineCotas(data){
+            console.log("", data);
+            vm.chart.lineDataGeral.labels = data.labels;
+            vm.chart.lineDataGeral.datasets[0].data = data.dados;
+            vm.chart.lineDataGeral.datasets[1].data = data.dadosSecundarios;
+        }
+
+        function onSuccessGeral(data){
+            console.log("", data);
+            vm.chart.lineDataGeral.labels = data.labels;
+            vm.chart.lineDataGeral.datasets[0].data = data.dados;
+            vm.chart.lineDataGeral.datasets[1].data = data.dadosSecundarios;
+        }
+
+        function onSuccessLineCotas(data){
+            console.log("", data);
+            vm.chart.lineDataCotas.labels = data.labels;
+            vm.chart.lineDataCotas.datasets[0].data = data.dados;
+            vm.chart.lineDataCotas.datasets[1].data = data.dadosSecundarios;
+        }
 
     }
 })();

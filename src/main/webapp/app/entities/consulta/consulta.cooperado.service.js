@@ -33,6 +33,37 @@
                     }
                     return data;
                 }
+            },
+            'consultasResumoPorCooperado': {
+                url: 'api/consulta/cooperado-resumo/:id',
+                method: 'GET',
+                transformResponse: function (data) {
+                    if (data) {
+                        console.log("buscando line chart", data);
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+                }
+            },
+            'consultasResumoPorCooperadoCotas': {
+                url: 'api/consulta/cooperado-resumo-cotas/:id',
+                method: 'GET',
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+                }
+            },
+            'consultasResumoGeral': {
+                url: 'api/consulta/cooperado-resumo-geral',
+                method: 'GET',
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+                }
             }
         });
     }
