@@ -32,9 +32,9 @@ public class GraficoService {
         Stream<Consulta> stream = consultaRepository.findByCooperadoId(cooperado).stream();
         int offset = offsetMeses == null ? 3 : offsetMeses;
         if (dataBase != null) {
-            stream = stream.filter(p -> p.getDataConsulta().minusMonths(offset).compareTo(dataBase) > 0 || p.getDataConsulta().plusMonths(offset).compareTo(dataBase) < 0);
+            stream = stream.filter(p -> p.getDataConsulta().minusMonths(offset).compareTo(dataBase) < 0 && p.getDataConsulta().plusMonths(offset).compareTo(dataBase) > 0);
         } else {
-            stream = stream.filter(p -> p.getDataConsulta().minusMonths(offset).compareTo(ZonedDateTime.now()) > 0 || p.getDataConsulta().plusMonths(offset).compareTo(ZonedDateTime.now()) < 0);
+            stream = stream.filter(p -> p.getDataConsulta().minusMonths(offset).compareTo(ZonedDateTime.now()) < 0 && p.getDataConsulta().plusMonths(offset).compareTo(ZonedDateTime.now()) > 0);
         }
         stream.sorted((c1, c2) -> c1.getDataConsulta().compareTo(c2.getDataConsulta()))
             .forEachOrdered( p-> {
