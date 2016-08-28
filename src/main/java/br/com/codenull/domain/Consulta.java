@@ -2,9 +2,10 @@ package br.com.codenull.domain;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -21,15 +22,15 @@ public class Consulta implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "data_consulta", nullable = false)
-    private LocalDate dataConsulta;
-
-    @NotNull
     @Column(name = "localidade", nullable = false)
     private String localidade;
 
     @Column(name = "criado_em")
     private LocalDate criadoEm;
+
+    @NotNull
+    @Column(name = "data_consulta", nullable = false)
+    private ZonedDateTime dataConsulta;
 
     @ManyToOne
     @NotNull
@@ -49,19 +50,6 @@ public class Consulta implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public LocalDate getDataConsulta() {
-        return dataConsulta;
-    }
-
-    public Consulta dataConsulta(LocalDate dataConsulta) {
-        this.dataConsulta = dataConsulta;
-        return this;
-    }
-
-    public void setDataConsulta(LocalDate dataConsulta) {
-        this.dataConsulta = dataConsulta;
     }
 
     public String getLocalidade() {
@@ -88,6 +76,19 @@ public class Consulta implements Serializable {
 
     public void setCriadoEm(LocalDate criadoEm) {
         this.criadoEm = criadoEm;
+    }
+
+    public ZonedDateTime getDataConsulta() {
+        return dataConsulta;
+    }
+
+    public Consulta dataConsulta(ZonedDateTime dataConsulta) {
+        this.dataConsulta = dataConsulta;
+        return this;
+    }
+
+    public void setDataConsulta(ZonedDateTime dataConsulta) {
+        this.dataConsulta = dataConsulta;
     }
 
     public Procedimento getProcedimento() {
@@ -153,9 +154,9 @@ public class Consulta implements Serializable {
     public String toString() {
         return "Consulta{" +
             "id=" + id +
-            ", dataConsulta='" + dataConsulta + "'" +
             ", localidade='" + localidade + "'" +
             ", criadoEm='" + criadoEm + "'" +
+            ", dataConsulta='" + dataConsulta + "'" +
             '}';
     }
 }

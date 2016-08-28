@@ -14,22 +14,6 @@
                     ng-model="vm.consulta.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" for="field_dataConsulta">Data Consulta</label>
-                <div class="input-group">
-                    <input id="field_dataConsulta" type="text" class="form-control" name="dataConsulta" uib-datepicker-popup="{{dateformat}}" ng-model="vm.consulta.dataConsulta" is-open="vm.datePickerOpenStatus.dataConsulta"
-                    required/>
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dataConsulta')"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </div>
-            <div ng-show="editForm.dataConsulta.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.dataConsulta.$error.required">
-                    This field is required.
-                </p>
-            </div>
-        </div>
-        <div class="form-group">
             <label class="control-label" for="field_localidade">Localidade</label>
             <input type="text" class="form-control" name="localidade" id="field_localidade"
                     ng-model="vm.consulta.localidade"
@@ -50,6 +34,26 @@
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('criadoEm')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_dataConsulta">Data Consulta</label>
+                <div class="input-group">
+                    <input id="field_dataConsulta" type="text" class="form-control" name="dataConsulta" datetime-picker="{{dateformat}}" ng-model="vm.consulta.dataConsulta" is-open="vm.datePickerOpenStatus.dataConsulta"
+                    required  />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dataConsulta')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.dataConsulta.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dataConsulta.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.dataConsulta.$error.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </p>
+            </div>
         </div>
 
         <div class="form-group">

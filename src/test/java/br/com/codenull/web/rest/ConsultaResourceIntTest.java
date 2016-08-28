@@ -1,22 +1,20 @@
 package br.com.codenull.web.rest;
 
 import br.com.codenull.HackathonApp;
-import br.com.codenull.domain.Consulta;
-import br.com.codenull.domain.Procedimento;
-import br.com.codenull.domain.Cooperado;
 import br.com.codenull.domain.Beneficiario;
+import br.com.codenull.domain.Consulta;
+import br.com.codenull.domain.Cooperado;
+import br.com.codenull.domain.Procedimento;
 import br.com.codenull.repository.ConsultaRepository;
 import br.com.codenull.service.ConsultaService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,11 +24,15 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -42,14 +44,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = HackathonApp.class)
 public class ConsultaResourceIntTest {
-
-    private static final LocalDate DEFAULT_DATA_CONSULTA = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATA_CONSULTA = LocalDate.now(ZoneId.systemDefault());
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
     private static final String DEFAULT_LOCALIDADE = "AAAAA";
     private static final String UPDATED_LOCALIDADE = "BBBBB";
 
     private static final LocalDate DEFAULT_CRIADO_EM = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_CRIADO_EM = LocalDate.now(ZoneId.systemDefault());
+
+    private static final ZonedDateTime DEFAULT_DATA_CONSULTA = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_DATA_CONSULTA = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_DATA_CONSULTA_STR = dateTimeFormatter.format(DEFAULT_DATA_CONSULTA);
 
     @Inject
     private ConsultaRepository consultaRepository;
@@ -89,9 +93,9 @@ public class ConsultaResourceIntTest {
     public static Consulta createEntity(EntityManager em) {
         Consulta consulta = new Consulta();
         consulta = new Consulta()
-                .dataConsulta(DEFAULT_DATA_CONSULTA)
                 .localidade(DEFAULT_LOCALIDADE)
-                .criadoEm(DEFAULT_CRIADO_EM);
+                .criadoEm(DEFAULT_CRIADO_EM)
+                .dataConsulta(DEFAULT_DATA_CONSULTA);
         // Add required entity
         Procedimento procedimento = ProcedimentoResourceIntTest.createEntity(em);
         em.persist(procedimento);
@@ -131,17 +135,17 @@ public class ConsultaResourceIntTest {
         List<Consulta> consultas = consultaRepository.findAll();
         assertThat(consultas).hasSize(databaseSizeBeforeCreate + 1);
         Consulta testConsulta = consultas.get(consultas.size() - 1);
-        assertThat(testConsulta.getDataConsulta()).isEqualTo(DEFAULT_DATA_CONSULTA);
         assertThat(testConsulta.getLocalidade()).isEqualTo(DEFAULT_LOCALIDADE);
         assertThat(testConsulta.getCriadoEm()).isEqualTo(DEFAULT_CRIADO_EM);
+        assertThat(testConsulta.getDataConsulta()).isEqualTo(DEFAULT_DATA_CONSULTA);
     }
 
     @Test
     @Transactional
-    public void checkDataConsultaIsRequired() throws Exception {
+    public void checkLocalidadeIsRequired() throws Exception {
         int databaseSizeBeforeTest = consultaRepository.findAll().size();
         // set the field null
-        consulta.setDataConsulta(null);
+        consulta.setLocalidade(null);
 
         // Create the Consulta, which fails.
 
@@ -156,10 +160,10 @@ public class ConsultaResourceIntTest {
 
     @Test
     @Transactional
-    public void checkLocalidadeIsRequired() throws Exception {
+    public void checkDataConsultaIsRequired() throws Exception {
         int databaseSizeBeforeTest = consultaRepository.findAll().size();
         // set the field null
-        consulta.setLocalidade(null);
+        consulta.setDataConsulta(null);
 
         // Create the Consulta, which fails.
 
@@ -183,9 +187,9 @@ public class ConsultaResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(consulta.getId().intValue())))
-                .andExpect(jsonPath("$.[*].dataConsulta").value(hasItem(DEFAULT_DATA_CONSULTA.toString())))
                 .andExpect(jsonPath("$.[*].localidade").value(hasItem(DEFAULT_LOCALIDADE.toString())))
-                .andExpect(jsonPath("$.[*].criadoEm").value(hasItem(DEFAULT_CRIADO_EM.toString())));
+                .andExpect(jsonPath("$.[*].criadoEm").value(hasItem(DEFAULT_CRIADO_EM.toString())))
+                .andExpect(jsonPath("$.[*].dataConsulta").value(hasItem(DEFAULT_DATA_CONSULTA_STR)));
     }
 
     @Test
@@ -199,9 +203,9 @@ public class ConsultaResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(consulta.getId().intValue()))
-            .andExpect(jsonPath("$.dataConsulta").value(DEFAULT_DATA_CONSULTA.toString()))
             .andExpect(jsonPath("$.localidade").value(DEFAULT_LOCALIDADE.toString()))
-            .andExpect(jsonPath("$.criadoEm").value(DEFAULT_CRIADO_EM.toString()));
+            .andExpect(jsonPath("$.criadoEm").value(DEFAULT_CRIADO_EM.toString()))
+            .andExpect(jsonPath("$.dataConsulta").value(DEFAULT_DATA_CONSULTA_STR));
     }
 
     @Test
@@ -223,9 +227,9 @@ public class ConsultaResourceIntTest {
         // Update the consulta
         Consulta updatedConsulta = consultaRepository.findOne(consulta.getId());
         updatedConsulta
-                .dataConsulta(UPDATED_DATA_CONSULTA)
                 .localidade(UPDATED_LOCALIDADE)
-                .criadoEm(UPDATED_CRIADO_EM);
+                .criadoEm(UPDATED_CRIADO_EM)
+                .dataConsulta(UPDATED_DATA_CONSULTA);
 
         restConsultaMockMvc.perform(put("/api/consultas")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -236,9 +240,9 @@ public class ConsultaResourceIntTest {
         List<Consulta> consultas = consultaRepository.findAll();
         assertThat(consultas).hasSize(databaseSizeBeforeUpdate);
         Consulta testConsulta = consultas.get(consultas.size() - 1);
-        assertThat(testConsulta.getDataConsulta()).isEqualTo(UPDATED_DATA_CONSULTA);
         assertThat(testConsulta.getLocalidade()).isEqualTo(UPDATED_LOCALIDADE);
         assertThat(testConsulta.getCriadoEm()).isEqualTo(UPDATED_CRIADO_EM);
+        assertThat(testConsulta.getDataConsulta()).isEqualTo(UPDATED_DATA_CONSULTA);
     }
 
     @Test

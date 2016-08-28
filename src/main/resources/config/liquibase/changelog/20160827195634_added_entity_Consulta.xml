@@ -21,16 +21,16 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="data_consulta" type="date">
-                <constraints nullable="false" />
-            </column>
-            
             <column name="localidade" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
             
             <column name="criado_em" type="date">
                 <constraints nullable="true" />
+            </column>
+            
+            <column name="data_consulta" type="timestamp">
+                <constraints nullable="false" />
             </column>
             
             <column name="procedimento_id" type="bigint">
@@ -47,6 +47,7 @@
 
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="consulta" columnName="data_consulta" columnDataType="datetime"/>
         
     </changeSet>
 </databaseChangeLog>

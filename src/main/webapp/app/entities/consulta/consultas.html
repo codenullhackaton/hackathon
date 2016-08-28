@@ -19,9 +19,9 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="dataConsulta"><span>Data Consulta</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="localidade"><span>Localidade</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="criadoEm"><span>Criado Em</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="dataConsulta"><span>Data Consulta</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="procedimento.descricao"><span>Procedimento</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="cooperado.nome"><span>Cooperado</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="beneficiario.nome"><span>Beneficiario</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -31,9 +31,9 @@
             <tbody>
                 <tr ng-repeat="consulta in vm.consultas track by consulta.id">
                     <td><a ui-sref="consulta-detail({id:consulta.id})">{{consulta.id}}</a></td>
-                        <td>{{consulta.dataConsulta | date:'mediumDate'}}</td>
                     <td>{{consulta.localidade}}</td>
                         <td>{{consulta.criadoEm | date:'mediumDate'}}</td>
+                    <td>{{consulta.dataConsulta | date:'medium'}}</td>
                     <td>
                         <a ui-sref="procedimento-detail({id:consulta.procedimento.id})">{{consulta.procedimento.descricao}}</a>
                     </td>
