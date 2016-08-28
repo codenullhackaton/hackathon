@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Random;
@@ -28,6 +28,7 @@ public class GraficoService {
 
     private static final Logger logger = LoggerFactory.getLogger(GraficoService.class);
     private static final BigDecimal MIL = new BigDecimal("1000");
+    private static final BigDecimal CEM = new BigDecimal("100");
 
     @Inject
     private ConsultaRepository consultaRepository;
@@ -97,18 +98,28 @@ public class GraficoService {
         BigDecimal cota = cooperado.getValorCota();
         while (mesSendoCalculado.compareTo(esseMes) < 0) {
             BigDecimal percentual = randomPercentual();
+            logger.info("percentual {} ", percentual);
             BigDecimal acrescimo = cota.multiply(percentual);
             acrescimo = acrescimo.setScale(2, BigDecimal.ROUND_HALF_EVEN);
             cota = cota.add(acrescimo);
-            retorno.addLabel(mesSendoCalculado.getMonthValue() + "/" + mesSendoCalculado.getYear());
-            retorno.addDados(cota);
-            retorno.addDadosSecundarios(percentual);
+            cota = cota.setScale(2);
+
+            logger.info("Mês sendo calculado {}", mesSendoCalculado);
+            long qdeMeses = Period.between(mesSendoCalculado, esseMes).toTotalMonths();
+            logger.info("qtde meses {}", qdeMeses);
+            if(qdeMeses <= 12) {
+                retorno.addLabel(mesSendoCalculado.getMonthValue() + "/" + mesSendoCalculado.getYear());
+                retorno.addDados(cota);
+                retorno.addDadosSecundarios(percentual);
+            }
             mesSendoCalculado = mesSendoCalculado.plusMonths(1);
         }
         return retorno;
     }
 
     private BigDecimal randomPercentual() {
-        return new BigDecimal(Integer.toString(new Random().nextInt(5200) + 500)).divide(MIL, BigDecimal.ROUND_HALF_EVEN);
+        BigDecimal perc = new BigDecimal(Integer.toString(new Random().nextInt(5200) + 500)).divide(MIL, BigDecimal.ROUND_HALF_EVEN);
+        logger.info("perce {}", perc);
+        return perc.divide(CEM);
     }
 }

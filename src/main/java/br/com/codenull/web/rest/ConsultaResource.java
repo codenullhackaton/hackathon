@@ -172,6 +172,28 @@ public class ConsultaResource {
         return ResponseEntity.ok(resumo);
     }
 
+
+    @RequestMapping(value = "/consulta/cooperado-resumo-cotas/{idCooperado}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<LineChart> getResumoCooperadoCotas(@PathVariable Long idCooperado) throws URISyntaxException {
+        log.debug("REST request to resumo Cooperado:");
+        LineChart resumo = graficoService.valorCotasDoCooperado(idCooperado);
+        return ResponseEntity.ok(resumo);
+    }
+
+    @RequestMapping(value = "/consulta/cooperado-resumo-geral",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<LineChart> getResumoGeral() throws URISyntaxException {
+        log.debug("REST request to resumo Cooperado:");
+        LineChart resumo = graficoService.arrecadacaoGeral(null);
+        return ResponseEntity.ok(resumo);
+    }
+
+
     private LineChart criarLineChartFake() {
         LineChart line = new LineChart();
         criarLabelsAndDados(line);

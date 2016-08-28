@@ -33,6 +33,8 @@
         vm.register = register;
         var lineChart = ConsultaCooperado.consultasPorCooperado({id: 1000}, onSuccessLineChart);
         var resmo = ConsultaCooperado.consultasResumoPorCooperado({id: 1000}, onSuccessResumo);
+        var cotas = ConsultaCooperado.consultasResumoPorCooperadoCotas({id: 1000}, onSuccessLineCotas);
+        var geral = ConsultaCooperado.consultasResumoGeral(onSuccessGeral);
 
         $scope.$on('authenticationSuccess', function () {
             getAccount();
@@ -282,6 +284,44 @@
                     pointHighlightStroke: "rgba(26,179,148,1)",
                     data: [28, 48, 40, 19, 86, 27, 90, 95, 80, 100]
                     //data: vm.lineChart.dados
+                },
+                {
+                    label: "Example dataset 2",
+                    fillColor: "rgba(220,220,220,0.5)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                }
+            ]
+        };
+
+        vm.chart.lineDataCotas = {
+            labels: ["January", "February", "March", "April", "May", "June", "July", "August", "Sept", "Octuber"],
+            /*labels: lineChart.labels,*/
+            datasets: [
+                {
+                    label: "Example dataset",
+                    fillColor: "rgba(26,179,148,0.5)",
+                    strokeColor: "rgba(26,179,148,0.7)",
+                    pointColor: "rgba(26,179,148,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(26,179,148,1)",
+                    data: [28, 48, 40, 19, 86, 27, 90, 95, 80, 100]
+                    //data: vm.lineChart.dados
+                },
+                {
+                    label: "Example dataset 2",
+                    fillColor: "rgba(220,220,220,0.5)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: [28, 48, 40, 19, 86, 27, 90]
                 }
             ]
         };
@@ -387,6 +427,26 @@
             vm.resumo = data;
         }
 
+        function onSuccessLineCotas(data){
+            console.log("", data);
+            vm.chart.lineDataGeral.labels = data.labels;
+            vm.chart.lineDataGeral.datasets[0].data = data.dados;
+            vm.chart.lineDataGeral.datasets[1].data = data.dadosSecundarios;
+        }
+
+        function onSuccessGeral(data){
+            console.log("", data);
+            vm.chart.lineDataGeral.labels = data.labels;
+            vm.chart.lineDataGeral.datasets[0].data = data.dados;
+            vm.chart.lineDataGeral.datasets[1].data = data.dadosSecundarios;
+        }
+
+        function onSuccessLineCotas(data){
+            console.log("", data);
+            vm.chart.lineDataCotas.labels = data.labels;
+            vm.chart.lineDataCotas.datasets[0].data = data.dados;
+            vm.chart.lineDataCotas.datasets[1].data = data.dadosSecundarios;
+        }
 
     }
 })();

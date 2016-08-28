@@ -261,7 +261,7 @@ public class CombinadorDeNomes {
     private static final List<String> nomesCompletos = new ArrayList<>(3000);
     private static final List<String> localidades = Arrays.asList("Pronto Atendimento Unimed", "Hospital Santa Rita", "Hospital Santa Casa", "Clinica própria", "Hospital São Marcos");
 
-    public static void main(String[] args) {
+    public static void mains(String[] args) {
         System.out.println("Iniciando");
         for (int i = 0; i < 3000; i++) {
             nomesCompletos.add(montaNome());
