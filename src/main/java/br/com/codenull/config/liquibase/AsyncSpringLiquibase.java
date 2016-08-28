@@ -47,6 +47,7 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
                     try {
                         log.warn("Starting Liquibase asynchronously, your database might not be ready at startup!");
                         initDb();
+                        log.warn("Liquibase run successfully");
                     } catch (LiquibaseException e) {
                         log.error("Liquibase could not start correctly, your database is NOT ready: {}", e.getMessage(), e);
                     }

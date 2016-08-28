@@ -15,4 +15,5 @@
     <include file="classpath:config/liquibase/changelog/20160827194337_added_entity_constraints_Cooperado.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160827195634_added_entity_constraints_Consulta.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <include file="classpath:config/liquibase/changelog/loadInicial.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
