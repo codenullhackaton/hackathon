@@ -5,9 +5,9 @@
         .module('hackathonApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'Noticia', 'Auth', '$state', '$rootScope', '$timeout'];
+    HomeController.$inject = ['$scope', 'Principal', 'Noticia', 'Auth', '$state', '$rootScope', '$timeout', 'ConsultaCooperado'];
 
-    function HomeController($scope, Principal, Noticia, Auth, $state, $rootScope, $timeout) {
+    function HomeController($scope, Principal, Noticia, Auth, $state, $rootScope, $timeout, ConsultaCooperado) {
 
         var vm = this;
 
@@ -30,7 +30,7 @@
         vm.isAuthenticated = null;
 
         vm.register = register;
-        var lineChart = ConsultaCooperado.consultasPorCooperado({id: 1}, onSuccessLineChart);
+        var lineChart = ConsultaCooperado.consultasPorCooperado({id: 1000}, onSuccessLineChart);
 
         $scope.$on('authenticationSuccess', function () {
             getAccount();
