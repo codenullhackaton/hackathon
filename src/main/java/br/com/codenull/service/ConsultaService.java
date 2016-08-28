@@ -1,13 +1,14 @@
 package br.com.codenull.service;
 
 import br.com.codenull.domain.Consulta;
+import br.com.codenull.domain.Cooperado;
 import br.com.codenull.repository.ConsultaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
 public class ConsultaService {
 
     private final Logger log = LoggerFactory.getLogger(ConsultaService.class);
-    
+
     @Inject
     private ConsultaRepository consultaRepository;
 
@@ -38,11 +39,11 @@ public class ConsultaService {
 
     /**
      *  Get all the consultas.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<Consulta> findAll(Pageable pageable) {
         log.debug("Request to get all Consultas");
         Page<Consulta> result = consultaRepository.findAll(pageable);
@@ -55,7 +56,7 @@ public class ConsultaService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Consulta findOne(Long id) {
         log.debug("Request to get Consulta : {}", id);
         Consulta consulta = consultaRepository.findOne(id);
@@ -70,5 +71,10 @@ public class ConsultaService {
     public void delete(Long id) {
         log.debug("Request to delete Consulta : {}", id);
         consultaRepository.delete(id);
+    }
+
+    public List<Consulta> consultaByCooperadoId(Cooperado cooperado){
+        log.debug("Consultando as Consultas do cooperado: {}", cooperado);
+        return consultaRepository.findByCooperadoId(cooperado.getId());
     }
 }

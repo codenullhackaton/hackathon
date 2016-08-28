@@ -1,8 +1,7 @@
 package br.com.codenull.repository;
 
 import br.com.codenull.domain.Consulta;
-
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
@@ -11,5 +10,8 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface ConsultaRepository extends JpaRepository<Consulta,Long> {
+
+
+    public List<Consulta> findByCooperadoId(Long cooperadoId);
 
 }
