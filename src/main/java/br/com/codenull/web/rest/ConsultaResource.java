@@ -1,7 +1,6 @@
 package br.com.codenull.web.rest;
 
 import br.com.codenull.domain.Consulta;
-import br.com.codenull.domain.Cooperado;
 import br.com.codenull.domain.chart.LineChart;
 import br.com.codenull.service.ConsultaService;
 import br.com.codenull.service.GraficoService;

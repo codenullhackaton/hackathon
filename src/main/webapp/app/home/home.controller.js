@@ -5,9 +5,9 @@
         .module('hackathonApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'Auth', '$state', '$rootScope', '$timeout'];
+    HomeController.$inject = ['$scope', 'Principal', 'Auth', '$state', '$rootScope', '$timeout', 'ConsultaCooperado'];
 
-    function HomeController($scope, Principal, Auth, $state, $rootScope, $timeout) {
+    function HomeController($scope, Principal, Auth, $state, $rootScope, $timeout, ConsultaCooperado) {
 
         var vm = this;
 
