@@ -9,7 +9,7 @@
 
     function NoticiaController ($scope, $state, Noticia, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
-        
+
         vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
         vm.reverse = pagingParams.ascending;
@@ -32,6 +32,7 @@
                 return result;
             }
             function onSuccess(data, headers) {
+                console.log('NOTICIAS: ' + data);
                 vm.links = ParseLinks.parse(headers('link'));
                 vm.totalItems = headers('X-Total-Count');
                 vm.queryCount = vm.totalItems;

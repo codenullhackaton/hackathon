@@ -1,14 +1,15 @@
 package br.com.codenull.service;
 
 import br.com.codenull.domain.Consulta;
+import br.com.codenull.domain.Cooperado;
 import br.com.codenull.repository.ConsultaRepository;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -71,6 +72,11 @@ public class ConsultaService {
     public void delete(Long id) {
         log.debug("Request to delete Consulta : {}", id);
         consultaRepository.delete(id);
+    }
+
+    public List<Consulta> consultaByCooperadoId(Cooperado cooperado){
+        log.debug("Consultando as Consultas do cooperado: {}", cooperado);
+        return consultaRepository.findByCooperadoId(cooperado.getId());
     }
 
     public List<Consulta> findConsultasByCooperadoId(Long idCooperado) {

@@ -15,6 +15,7 @@
             // 'angularMoment',
             'mwl.calendar',
             'infinite-scroll',
+            'oc.lazyLoad',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
             'angular-loading-bar'
         ])
