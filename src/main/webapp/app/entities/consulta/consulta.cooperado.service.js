@@ -18,7 +18,6 @@
                 method: 'GET',
                 transformResponse: function (data) {
                     if (data) {
-                        console.log("buscando line chart", data);
                         data = angular.fromJson(data);
                     }
                     return data;
@@ -30,7 +29,6 @@
                 isArray: true,
                 transformResponse: function (data) {
                     if (data) {
-                        console.log("CONSULTAS PARA AGENDA: ", data);
                         data = angular.fromJson(data);
                     }
                     return data;

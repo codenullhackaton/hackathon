@@ -5,11 +5,9 @@
         .module('hackathonApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'Noticia', 'Auth', '$state', '$rootScope', '$timeout', 'ConsultaCooperado', 'Cooperado'];
-    HomeController.$inject = ['$window', '$scope', 'Noticia', 'Principal', 'Consulta', 'Auth', '$state', '$rootScope', '$timeout', 'calendarConfig', 'AlertService', 'moment', '$ocLazyLoad', 'ConsultaCooperado'];
+    HomeController.$inject = ['$window', '$scope', 'Noticia', 'Principal', 'Consulta', 'Auth', '$state', '$rootScope', '$timeout', 'calendarConfig', 'AlertService', 'moment', '$ocLazyLoad', 'ConsultaCooperado', 'Cooperado'];
 
-    function HomeController($scope, Principal, Noticia, Auth, $state, $rootScope, $timeout, ConsultaCooperado, Cooperado) {
-    function HomeController($window, $scope, Noticia, Principal, Consulta, Auth, $state, $rootScope, $timeout, calendarConfig, AlertService, moment, $ocLazyLoad, ConsultaCooperado) {
+    function HomeController($window, $scope, Noticia, Principal, Consulta, Auth, $state, $rootScope, $timeout, calendarConfig, AlertService, moment, $ocLazyLoad, ConsultaCooperado, Cooperado) {
 
         var vm = this;
 
@@ -114,6 +112,7 @@
         function succesCooperadoByLogin(data) {
             vm.cooperado= data;
             ConsultaCooperado.consultasPorCooperado({id: vm.cooperado.id}, onSuccessLineChart);
+            buscarConsultarPorCooperadoParaAgenda(vm.cooperado.id);
         }
 
         function errorCooperadoByLogin(error) {
@@ -402,9 +401,8 @@
         vm.temCompromissoHoje = false;
         vm.eventosAgenda = [];
 
-        buscarConsultarPorCooperadoParaAgenda();
-        function buscarConsultarPorCooperadoParaAgenda() {
-            ConsultaCooperado.consultasPorCooperadoAgenda({id: 1000}, onSuccessAgenda);
+        function buscarConsultarPorCooperadoParaAgenda(id) {
+            ConsultaCooperado.consultasPorCooperadoAgenda({id: id}, onSuccessAgenda);
             function onSuccessAgenda(data) {
                 vm.consultasAgenda = data;
 
