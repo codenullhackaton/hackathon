@@ -1,7 +1,6 @@
 package br.com.codenull.web.rest;
 
 import br.com.codenull.domain.Consulta;
-import br.com.codenull.domain.Cooperado;
 import br.com.codenull.domain.chart.LineChart;
 import br.com.codenull.service.ConsultaService;
 import br.com.codenull.service.GraficoService;
@@ -116,6 +115,22 @@ public class ConsultaResource {
         log.debug("REST request to get Consultas por Cooperado: {}", idCooperado);
 
         List<Consulta> consultas = consultaService.findConsultasByCooperadoId(idCooperado);
+        return Optional.ofNullable(consultas)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @RequestMapping(
+        value = "/consultas/agenda/beneficiario/{idBeneficiario}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<Consulta>> getConsultasPorBeneficiario(@PathVariable Long idBeneficiario) {
+        log.debug("REST request to get Consultas por Beneficiario: {}", idBeneficiario);
+
+        List<Consulta> consultas = consultaService.findConsultasByBeneficiarioId(idBeneficiario);
         return Optional.ofNullable(consultas)
             .map(result -> new ResponseEntity<>(
                 result,

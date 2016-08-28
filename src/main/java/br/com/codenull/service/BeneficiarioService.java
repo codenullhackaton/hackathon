@@ -20,7 +20,7 @@ import java.util.List;
 public class BeneficiarioService {
 
     private final Logger log = LoggerFactory.getLogger(BeneficiarioService.class);
-    
+
     @Inject
     private BeneficiarioRepository beneficiarioRepository;
 
@@ -38,11 +38,11 @@ public class BeneficiarioService {
 
     /**
      *  Get all the beneficiarios.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<Beneficiario> findAll(Pageable pageable) {
         log.debug("Request to get all Beneficiarios");
         Page<Beneficiario> result = beneficiarioRepository.findAll(pageable);
@@ -55,7 +55,7 @@ public class BeneficiarioService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Beneficiario findOne(Long id) {
         log.debug("Request to get Beneficiario : {}", id);
         Beneficiario beneficiario = beneficiarioRepository.findOne(id);
@@ -70,5 +70,10 @@ public class BeneficiarioService {
     public void delete(Long id) {
         log.debug("Request to delete Beneficiario : {}", id);
         beneficiarioRepository.delete(id);
+    }
+
+    public Beneficiario getBeneficiarioPorCooperado(Long id) {
+        Beneficiario beneficiario = beneficiarioRepository.getBeneficiarioPorCooperado(id);
+        return beneficiario;
     }
 }

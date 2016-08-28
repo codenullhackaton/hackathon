@@ -3,7 +3,6 @@ package br.com.codenull.service;
 import br.com.codenull.domain.Consulta;
 import br.com.codenull.domain.Cooperado;
 import br.com.codenull.repository.ConsultaRepository;
-import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -39,10 +38,10 @@ public class ConsultaService {
     }
 
     /**
-     *  Get all the consultas.
+     * Get all the consultas.
      *
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * @param pageable the pagination information
+     * @return the list of entities
      */
     @Transactional(readOnly = true)
     public Page<Consulta> findAll(Pageable pageable) {
@@ -52,10 +51,10 @@ public class ConsultaService {
     }
 
     /**
-     *  Get one consulta by id.
+     * Get one consulta by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Transactional(readOnly = true)
     public Consulta findOne(Long id) {
@@ -65,16 +64,16 @@ public class ConsultaService {
     }
 
     /**
-     *  Delete the  consulta by id.
+     * Delete the  consulta by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     public void delete(Long id) {
         log.debug("Request to delete Consulta : {}", id);
         consultaRepository.delete(id);
     }
 
-    public List<Consulta> consultaByCooperadoId(Cooperado cooperado){
+    public List<Consulta> consultaByCooperadoId(Cooperado cooperado) {
         log.debug("Consultando as Consultas do cooperado: {}", cooperado);
         return consultaRepository.findByCooperadoId(cooperado.getId());
     }
@@ -82,5 +81,10 @@ public class ConsultaService {
     public List<Consulta> findConsultasByCooperadoId(Long idCooperado) {
         log.debug("REST request to get Consultas por Cooperado: {}", idCooperado);
         return consultaRepository.findByCooperadoId(idCooperado);
+    }
+
+    public List<Consulta> findConsultasByBeneficiarioId(Long idBeneficiario) {
+        log.debug("REST request to get Consultas por Beneficiario: {}", idBeneficiario);
+        return consultaRepository.findByBeneficiarioId(idBeneficiario);
     }
 }

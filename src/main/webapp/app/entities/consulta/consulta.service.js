@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
     angular
         .module('hackathonApp')
@@ -6,11 +6,11 @@
 
     Consulta.$inject = ['$resource', 'DateUtils'];
 
-    function Consulta ($resource, DateUtils) {
-        var resourceUrl =  'api/consultas/:id';
+    function Consulta($resource, DateUtils) {
+        var resourceUrl = 'api/consultas/:id';
 
         return $resource(resourceUrl, {}, {
-            'query': { method: 'GET', isArray: true},
+            'query': {method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {
@@ -45,6 +45,11 @@
                     }
                     return data;
                 }
+            },
+            'getConsultasPorBeneficiario': {
+                url: 'api/consultas/agenda/beneficiario/:idBeneficiario',
+                method: 'GET',
+                isArray: true
             }
         });
     }

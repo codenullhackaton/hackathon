@@ -1,10 +1,10 @@
 package br.com.codenull.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import br.com.codenull.domain.Beneficiario;
 import br.com.codenull.service.BeneficiarioService;
 import br.com.codenull.web.rest.util.HeaderUtil;
 import br.com.codenull.web.rest.util.PaginationUtil;
+import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -29,7 +29,7 @@ import java.util.Optional;
 public class BeneficiarioResource {
 
     private final Logger log = LoggerFactory.getLogger(BeneficiarioResource.class);
-        
+
     @Inject
     private BeneficiarioService beneficiarioService;
 
@@ -111,6 +111,20 @@ public class BeneficiarioResource {
     public ResponseEntity<Beneficiario> getBeneficiario(@PathVariable Long id) {
         log.debug("REST request to get Beneficiario : {}", id);
         Beneficiario beneficiario = beneficiarioService.findOne(id);
+        return Optional.ofNullable(beneficiario)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @RequestMapping(value = "/beneficiarios-por-cooperado/{id}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Beneficiario> getBeneficiarioPorCooperado(@PathVariable Long id) {
+        log.debug("REST request to get Beneficiario : {}", id);
+        Beneficiario beneficiario = beneficiarioService.getBeneficiarioPorCooperado(id);
         return Optional.ofNullable(beneficiario)
             .map(result -> new ResponseEntity<>(
                 result,

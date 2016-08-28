@@ -74,6 +74,34 @@
                 }]
             }
         })
+            .state('beneficiario-detail-cooperado', {
+                parent: 'entity',
+                url: '/beneficiario-cooperado/{id}',
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'Beneficiario'
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'app/entities/beneficiario/beneficiario-detail.html',
+                        controller: 'BeneficiarioDetailController',
+                        controllerAs: 'vm'
+                    }
+                },
+                resolve: {
+                    entity: ['$stateParams', 'Beneficiario', function($stateParams, Beneficiario) {
+                        return Beneficiario.getPorCooperado({id : $stateParams.id}).$promise;
+                    }],
+                    previousState: ["$state", function ($state) {
+                        var currentStateData = {
+                            name: $state.current.name || 'beneficiario',
+                            params: $state.params,
+                            url: $state.href($state.current.name, $state.params)
+                        };
+                        return currentStateData;
+                    }]
+                }
+            })
         .state('beneficiario-detail.edit', {
             parent: 'beneficiario-detail',
             url: '/detail/edit',

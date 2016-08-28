@@ -83,15 +83,18 @@
                                                         <h2 class="no-margins">
                                                             {{vm.cooperado.nome}}
                                                         </h2>
-                                                        <div ng-repeat="especialidade in vm.cooperado.especialidades track by especialidade.id">
-                                                            <h4>{{especialidade.descricao}}</h4>
+                                                        <hr/>
+                                                        <div
+                                                            ng-repeat="especialidade in vm.cooperado.especialidades track by especialidade.id">
+                                                            <p>{{especialidade.descricao}}</p>
                                                         </div>
 
                                                         <small>
-                                                            There are many variations of passages of Lorem Ipsum
-                                                            available, but the
-                                                            majority
-                                                            have suffered alteration in some form Ipsum available.
+                                                            <a type="submit"
+                                                               ui-sref="beneficiario-detail-cooperado({id:vm.cooperado.id})">
+                                                                Ver Linha do Tempo
+                                                                <span class="glyphicon glyphicon-eye-open"></span>
+                                                            </a>
                                                         </small>
                                                     </div>
                                                 </div>

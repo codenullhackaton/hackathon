@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
     angular
         .module('hackathonApp')
@@ -6,11 +6,11 @@
 
     Beneficiario.$inject = ['$resource'];
 
-    function Beneficiario ($resource) {
-        var resourceUrl =  'api/beneficiarios/:id';
+    function Beneficiario($resource) {
+        var resourceUrl = 'api/beneficiarios/:id';
 
         return $resource(resourceUrl, {}, {
-            'query': { method: 'GET', isArray: true},
+            'query': {method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {
@@ -20,7 +20,17 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'getPorCooperado': {
+                method: 'GET',
+                url: 'api/beneficiarios-por-cooperado/:id',
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                    }
+                    return data;
+                }
+            },
+            'update': {method: 'PUT'}
         });
     }
 })();

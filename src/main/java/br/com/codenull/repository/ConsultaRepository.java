@@ -9,9 +9,11 @@ import java.util.List;
  * Spring Data JPA repository for the Consulta entity.
  */
 @SuppressWarnings("unused")
-public interface ConsultaRepository extends JpaRepository<Consulta,Long> {
+public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 
 
     public List<Consulta> findByCooperadoId(Long cooperadoId);
+
+    public List<Consulta> findByBeneficiarioId(Long cooperadoId);
 
 }

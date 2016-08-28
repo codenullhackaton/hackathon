@@ -1,6 +1,6 @@
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <h2><span>Beneficiario</span> {{vm.beneficiario.id}}</h2>
+        <h2><span>Beneficiario:</span> <strong>{{vm.beneficiario.id}} </strong> - {{vm.beneficiario.nome}}</h2>
     </div>
     <div class="ibox-content ">
         <div>
@@ -17,16 +17,66 @@
                 </dd>
             </dl>
 
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Linha do Tempo</h2>
+            </div>
+            <div class="col-md-6 p-m">
+                <div id="vertical-timeline" class="vertical-container light-timeline no-margins">
+
+                    <div class="vertical-timeline-block" ng-repeat="consulta in vm.consultas track by consulta.id">
+                        <div class="vertical-timeline-icon blue-bg">
+                            <i class="fa fa-hospital-o"></i>
+                        </div>
+
+                        <div class="vertical-timeline-content">
+                            <h2>
+                                <a ui-sref="consulta-detail({id:consulta.id})">
+                                    {{consulta.procedimento.descricao}}
+                                </a>
+                            </h2>
+                            <p>Dr.(a) {{consulta.cooperado.nome}}
+                                <small><span class="text-muted">{{consulta.localidade}}</span></small>
+                            </p>
+
+                            <div class="row">
+                                    <span class="vertical-date col-md-2">
+                                        Agendado em <br>
+                                        <small>{{consulta.criadoEm | date:'dd/MM/yyyy'}}</small>
+                                    </span>
+                                    <span class="vertical-date col-md-2">
+                                        Realizado em <br>
+                                        <small>{{consulta.dataConsulta | date:'dd/MM/yyyy'}}</small>
+                                    </span>
+                                 <span class="vertical-date col-md-2">
+                                      Valor <br>
+                                      <small>{{consulta.procedimento.valor | currency}}</small>
+                                 </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <h3>Gráfico <small>Valores por Tipo de Consulta</small></h3>
+                <div>
+                    <canvas doughnutchart options="vm.chart.doughnutOptions" data="vm.chart.doughnutData" height="140"
+                            responsive=true></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <button type="submit"
                     ui-sref="{{ vm.previousState }}"
                     class="btn btn-info">
-                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Voltar</span>
             </button>
 
             <button type="button" ui-sref="beneficiario-detail.edit({id:vm.beneficiario.id})"
                     class="btn btn-primary">
                 <span class="glyphicon glyphicon-pencil"></span>
-                <span class="hidden-xs hidden-sm"> Edit</span>
+                <span class="hidden-xs hidden-sm"> Editar</span>
             </button>
         </div>
     </div>
