@@ -1,10 +1,10 @@
 package br.com.codenull.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import br.com.codenull.domain.Cooperado;
 import br.com.codenull.service.CooperadoService;
 import br.com.codenull.web.rest.util.HeaderUtil;
 import br.com.codenull.web.rest.util.PaginationUtil;
+import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -30,7 +30,7 @@ import java.util.Optional;
 public class CooperadoResource {
 
     private final Logger log = LoggerFactory.getLogger(CooperadoResource.class);
-        
+
     @Inject
     private CooperadoService cooperadoService;
 
@@ -112,6 +112,21 @@ public class CooperadoResource {
     public ResponseEntity<Cooperado> getCooperado(@PathVariable Long id) {
         log.debug("REST request to get Cooperado : {}", id);
         Cooperado cooperado = cooperadoService.findOne(id);
+        return Optional.ofNullable(cooperado)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+
+    @RequestMapping(value = "/cooperados-by-login/{login}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Cooperado> getCooperado(@PathVariable String login) {
+        log.debug("REST request to get Cooperado by Login : {}", login);
+        Cooperado cooperado = cooperadoService.findFirstByUserLogin(login);
         return Optional.ofNullable(cooperado)
             .map(result -> new ResponseEntity<>(
                 result,

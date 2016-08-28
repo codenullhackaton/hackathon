@@ -24,22 +24,22 @@
             <column name="nome" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="crm" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="valor_cota" type="decimal(10,2)">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="adesao" type="date">
                 <constraints nullable="false" />
             </column>
-            
+
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-        
+
         <createTable tableName="cooperado_especialidades">
             <column name="especialidades_id" type="bigint">
                 <constraints nullable="false"/>
@@ -50,6 +50,19 @@
         </createTable>
 
         <addPrimaryKey columnNames="cooperados_id, especialidades_id" tableName="cooperado_especialidades"/>
-        
+
+    </changeSet>
+
+    <changeSet id="1" author="gustavo">
+        <addColumn tableName="cooperado">
+            <column name="user_id" type="bigint"/>
+        </addColumn>
+
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="cooperado"
+                                 constraintName="fk_cooperado_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
     </changeSet>
 </databaseChangeLog>

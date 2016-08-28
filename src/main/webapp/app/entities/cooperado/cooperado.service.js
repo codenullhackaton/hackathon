@@ -34,7 +34,18 @@
                     data.adesao = DateUtils.convertLocalDateToServer(data.adesao);
                     return angular.toJson(data);
                 }
-            }
+            },
+            'getByLogin': {
+                method: 'GET',
+                url: 'api/cooperados-by-login/:login',
+                transformResponse: function (data) {
+                    if (data) {
+                        data = angular.fromJson(data);
+                        data.adesao = DateUtils.convertLocalDateFromServer(data.adesao);
+                    }
+                    return data;
+                }
+            },
         });
     }
 })();

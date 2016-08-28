@@ -5,9 +5,9 @@
         .module('hackathonApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'Noticia', 'Auth', '$state', '$rootScope', '$timeout', 'ConsultaCooperado'];
+    HomeController.$inject = ['$scope', 'Principal', 'Noticia', 'Auth', '$state', '$rootScope', '$timeout', 'ConsultaCooperado', 'Cooperado'];
 
-    function HomeController($scope, Principal, Noticia, Auth, $state, $rootScope, $timeout, ConsultaCooperado) {
+    function HomeController($scope, Principal, Noticia, Auth, $state, $rootScope, $timeout, ConsultaCooperado, Cooperado) {
 
         var vm = this;
 
@@ -30,7 +30,6 @@
         vm.isAuthenticated = null;
 
         vm.register = register;
-        var lineChart = ConsultaCooperado.consultasPorCooperado({id: 1000}, onSuccessLineChart);
 
         $scope.$on('authenticationSuccess', function () {
             getAccount();
@@ -95,7 +94,18 @@
             Principal.identity().then(function (account) {
                 vm.account = account;
                 vm.isAuthenticated = Principal.isAuthenticated;
+                console.log("vai buscar o cooperado", account.login);
+                Cooperado.getByLogin({login: account.login}, succesCooperadoByLogin, errorCooperadoByLogin);
             });
+        }
+
+        function succesCooperadoByLogin(data) {
+            vm.cooperado= data;
+            ConsultaCooperado.consultasPorCooperado({id: vm.cooperado.id}, onSuccessLineChart);
+        }
+
+        function errorCooperadoByLogin(error) {
+            console.log("erro ao buscar o cooperado", error);
         }
 
         function getNoticias() {
@@ -250,18 +260,18 @@
          * Options for Line chart
          */
         this.lineOptions = {
-            scaleShowGridLines : true,
-            scaleGridLineColor : "rgba(0,0,0,.05)",
-            scaleGridLineWidth : 1,
-            bezierCurve : true,
-            bezierCurveTension : 0.4,
-            pointDot : true,
-            pointDotRadius : 4,
-            pointDotStrokeWidth : 1,
-            pointHitDetectionRadius : 20,
-            datasetStroke : true,
-            datasetStrokeWidth : 2,
-            datasetFill : true
+            scaleShowGridLines: true,
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleGridLineWidth: 1,
+            bezierCurve: true,
+            bezierCurveTension: 0.4,
+            pointDot: true,
+            pointDotRadius: 4,
+            pointDotStrokeWidth: 1,
+            pointHitDetectionRadius: 20,
+            datasetStroke: true,
+            datasetStrokeWidth: 2,
+            datasetFill: true
         };
 
         /**
